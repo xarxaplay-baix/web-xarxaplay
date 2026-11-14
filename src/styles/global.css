@@ -282,3 +282,18 @@ img.slide-art{object-fit:cover}
   .sd-thumb{aspect-ratio:1}
 }
 section[id]{scroll-margin-top:80px}
+
+/* mapa amb càrrega a demanda */
+.map{overflow:hidden}
+.map-ph{display:grid;justify-items:center;gap:16px;padding:24px;text-align:center}
+.map-note{font-size:.8rem;color:var(--muted);max-width:34ch}
+.map.loaded{background:none;display:block}
+.map iframe{display:block;width:100%;height:100%;min-height:360px;border:0;border-radius:var(--radius)}
+
+/* bàner de galetes */
+.cookie{position:fixed;left:12px;right:12px;bottom:84px;z-index:60;max-width:640px;margin:0 auto;background:var(--ink);color:#E8EDE1;border-radius:var(--radius);padding:18px 20px;box-shadow:0 20px 50px rgba(0,0,0,.35);display:grid;gap:12px;font-size:.95rem}
+.cookie[hidden]{display:none}
+.cookie-btns{display:flex;gap:10px;flex-wrap:wrap}
+.cookie .btn{color:#fff;font-size:.85rem;padding:.65em 1.2em;flex:1}
+@media (min-width:860px){.cookie{bottom:20px}}
+.link-btn{background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;cursor:pointer}

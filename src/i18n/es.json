@@ -206,5 +206,13 @@
  "d_ten_alt0": "Pista de tenis renovada de XarxaPlay en Sant Boi de Llobregat",
  "d_ten_alt1": "Vista aérea de la pista de tenis",
  "d_ten_alt2": "Pista de tenis y edificio del Complex Esportiu Baldiri Aleu",
- "d_ten_alt3": "Pista de tenis vista desde el lateral"
+ "d_ten_alt3": "Pista de tenis vista desde el lateral",
+ "map_title": "Mapa de XarxaPlay en Sant Boi de Llobregat",
+ "map_btn": "Mostrar el mapa",
+ "map_note": "El mapa es de Google Maps y al cargarlo Google puede usar cookies.",
+ "ck_title": "Cookies.",
+ "ck_text": "Usamos cookies de analítica (Google Analytics) para saber cómo se usa la web y mejorarla. Solo se activan si las aceptas.",
+ "ck_accept": "Acepto",
+ "ck_reject": "Rechazo",
+ "ck_settings": "Configuración de cookies"
 }

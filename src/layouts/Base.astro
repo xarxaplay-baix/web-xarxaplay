@@ -35,7 +35,9 @@ const ld = {
   },
   areaServed: ["Sant Boi de Llobregat", "Baix Llobregat"],
   containedInPlace: { "@type": "SportsActivityLocation", name: "Complex Esportiu Baldiri Aleu" },
+  hasMap: "https://www.google.com/maps/search/?api=1&query=XarxaPlay%2C+Carrer+Baldiri+Aleu+1-7%2C+Sant+Boi+de+Llobregat",
   sameAs: [
+    "https://www.google.com/search?kgmid=/g/11xvxqqcgc",
     "https://www.instagram.com/xarxaplay/",
     "https://www.youtube.com/@XarxaPlay",
     "https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu",
@@ -66,6 +68,17 @@ const ld = {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,600;0,800;1,700;1,800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+<!-- Google tag (gtag.js) amb Consent Mode v2: tot denegat fins que el visitant accepti -->
+<script is:inline define:vars={{ gaId: site.gaId }}>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+window.gtag = gtag;
+gtag('consent', 'default', {ad_storage:'denied', ad_user_data:'denied', ad_personalization:'denied', analytics_storage:'denied', wait_for_update: 500});
+try { var c = localStorage.getItem('xp_consent'); if (c === 'grant') gtag('consent', 'update', {analytics_storage:'granted'}); } catch (e) {}
+gtag('js', new Date());
+gtag('config', gaId);
+</script>
+<script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${site.gaId}`}></script>
 </head>
 <body>
 <slot />

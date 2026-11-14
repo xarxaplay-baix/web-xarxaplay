@@ -34,3 +34,44 @@
   }
   window.addEventListener('hashchange',route);route();
 })();
+(function(){
+  // Galetes (Consent Mode v2)
+  var bar=document.getElementById('cookie');
+  function get(){try{return localStorage.getItem('xp_consent');}catch(e){return null;}}
+  function set(v){try{localStorage.setItem('xp_consent',v);}catch(e){}}
+  function apply(v){
+    if(window.gtag) gtag('consent','update',{analytics_storage: v==='grant'?'granted':'denied'});
+  }
+  if(bar){
+    if(!get()) bar.hidden=false;
+    bar.querySelectorAll('[data-consent]').forEach(function(b){b.addEventListener('click',function(){
+      var v=b.getAttribute('data-consent'); set(v); apply(v); bar.hidden=true;
+    });});
+    document.querySelectorAll('[data-cookie-settings]').forEach(function(b){b.addEventListener('click',function(){bar.hidden=false;});});
+  }
+  // Mapa: es carrega només quan el visitant ho demana
+  var map=document.getElementById('map');
+  if(map){
+    var btn=map.querySelector('.map-load');
+    btn&&btn.addEventListener('click',function(){
+      var f=document.createElement('iframe');
+      f.src=map.getAttribute('data-src'); f.title=map.getAttribute('data-title')||'Mapa';
+      f.loading='lazy'; f.referrerPolicy='no-referrer-when-downgrade'; f.allowFullscreen=true;
+      map.innerHTML=''; map.appendChild(f); map.classList.add('loaded');
+      ev('mapa_obert');
+    });
+  }
+  // Esdeveniments d'Analytics
+  function ev(name,params){ if(window.gtag) gtag('event',name,params||{}); }
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a'); if(!a) return;
+    var h=a.getAttribute('href')||'';
+    if(h.indexOf('playtomic.com')>-1) ev('reserva_pista',{link_url:h});
+    else if(h.indexOf('tel:')===0) ev('trucada');
+    else if(h.indexOf('mailto:')===0) ev('email');
+    else if(h.indexOf('wa.me')>-1||h.indexOf('whatsapp')>-1) ev('whatsapp');
+    else if(a.dataset.ev) ev(a.dataset.ev);
+  });
+  var trial=document.getElementById('trial');
+  trial&&trial.addEventListener('submit',function(){ev('generate_lead',{form:'prova_gratuita'});});
+})();

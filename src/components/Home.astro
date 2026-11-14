@@ -226,9 +226,15 @@ const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
           <a href="tel:+34611755275">+34 611 75 52 75</a>
           <a href="mailto:info@xarxaplay.es">info@xarxaplay.es</a>
         </div>
-        <div class="cta-row"><a class="btn btn-green" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a><a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Carrer+Baldiri+Aleu+1+Sant+Boi+de+Llobregat"><Fragment set:html={t["howto"]} /></a></div>
+        <div class="cta-row"><a class="btn btn-green" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a><a class="btn btn-ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=XarxaPlay%2C+Carrer+Baldiri+Aleu+1-7%2C+08830+Sant+Boi+de+Llobregat" rel="noopener" target="_blank" data-ev="com_arribar"><Fragment set:html={t["howto"]} /></a></div>
       </div>
-      <div class="map" role="img" aria-label="Mapa de situació"><div class="pin">XarxaPlay<small>CE Baldiri Aleu</small></div></div>
+      <div class="map" id="map" data-src={`https://www.google.com/maps?q=XarxaPlay%2C+Carrer+Baldiri+Aleu+1-7%2C+08830+Sant+Boi+de+Llobregat&hl=${lang}&z=16&output=embed`} data-title={t["map_title"]}>
+        <div class="map-ph">
+          <div class="pin">XarxaPlay<small>C/ Baldiri Aleu 1-7 · Sant Boi</small></div>
+          <button type="button" class="btn btn-green map-load"><Fragment set:html={t["map_btn"]} /></button>
+          <p class="map-note"><Fragment set:html={t["map_note"]} /></p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -296,7 +302,7 @@ const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
       <div><h4><Fragment set:html={t["ft_contact"]} /></h4><ul><li>C/ Baldiri Aleu 1-7</li><li>08830 Sant Boi de Llobregat</li><li><a href="tel:+34611755275">+34 611 75 52 75</a></li><li><a href="mailto:info@xarxaplay.es">info@xarxaplay.es</a></li></ul></div>
       <div><h4><Fragment set:html={t["ft_follow"]} /></h4><ul><li><a href="https://www.instagram.com/xarxaplay/">Instagram</a></li><li><a href="https://www.youtube.com/@XarxaPlay">YouTube</a></li><li><a href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu">Playtomic</a></li></ul></div>
     </div>
-    <div class="legal"><span>© 2026 XarxaPlay · Complex Esportiu Baldiri Aleu</span><span><Fragment set:html={t["ft_legal"]} /></span></div>
+    <div class="legal"><span>© 2026 XarxaPlay · Complex Esportiu Baldiri Aleu</span><span><Fragment set:html={t["ft_legal"]} /> · <button type="button" class="link-btn" data-cookie-settings><Fragment set:html={t["ck_settings"]} /></button></span></div>
   </div>
 </footer>
 
@@ -439,6 +445,13 @@ const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
 <h2 class="rel-h"><Fragment set:html={t["rel_h"]} /></h2>
 <div class="rels"><a class="rel" href="#americana-padel-sant-boi"><svg class="ill small" style="background:#1F3110" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><rect width="600" height="340" fill="#1F3110"/><g fill="#E6E200"><circle cx="200" cy="110" r="34"/><circle cx="400" cy="110" r="34"/><circle cx="200" cy="240" r="34"/></g><circle cx="400" cy="240" r="34" fill="#fff"/><path d="M250 92 C290 70 320 70 352 92" stroke="#fff" stroke-width="8" fill="none"/><path d="M352 258 C320 282 290 282 250 258" stroke="#fff" stroke-width="8" fill="none"/><path d="M342 80 L356 95 L336 102 M258 270 L244 255 L264 248" stroke="#fff" stroke-width="8" fill="none"/></svg><span><Fragment set:html={t["b_americana-padel-sant-boi_t"]} /></span></a><a class="rel" href="#tennis-sant-boi"><svg class="ill small" style="background:#B4552E" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><rect width="600" height="340" fill="#B4552E"/><circle cx="240" cy="170" r="95" fill="#E6E200"/><path d="M165 110 C215 140 215 200 165 230 M315 110 C265 140 265 200 315 230" stroke="#fff" stroke-width="9" fill="none"/><ellipse cx="420" cy="140" rx="62" ry="80" fill="none" stroke="#fff" stroke-width="12" transform="rotate(25 420 140)"/><rect x="452" y="205" width="22" height="95" rx="8" fill="#121410" transform="rotate(25 420 140)"/></svg><span><Fragment set:html={t["b_tennis-sant-boi_t"]} /></span></a></div>
 </div></article>
+</div>
+<div class="cookie" id="cookie" role="dialog" aria-live="polite" aria-label={t["ck_title"]} hidden>
+  <p><b><Fragment set:html={t["ck_title"]} /></b> <Fragment set:html={t["ck_text"]} /></p>
+  <div class="cookie-btns">
+    <button type="button" class="btn btn-ghost" data-consent="deny"><Fragment set:html={t["ck_reject"]} /></button>
+    <button type="button" class="btn btn-ghost" data-consent="grant"><Fragment set:html={t["ck_accept"]} /></button>
+  </div>
 </div>
 <div class="mbar">
   <a class="btn btn-ball" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a>
