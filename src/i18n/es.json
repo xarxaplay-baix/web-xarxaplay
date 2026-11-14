@@ -214,5 +214,6 @@
  "ck_text": "Usamos cookies de analítica (Google Analytics) para saber cómo se usa la web y mejorarla. Solo se activan si las aceptas.",
  "ck_accept": "Acepto",
  "ck_reject": "Rechazo",
- "ck_settings": "Configuración de cookies"
+ "ck_settings": "Configuración de cookies",
+ "tel_fix": "(fijo)"
 }

@@ -297,3 +297,5 @@ section[id]{scroll-margin-top:80px}
 .cookie .btn{color:#fff;font-size:.85rem;padding:.65em 1.2em;flex:1}
 @media (min-width:860px){.cookie{bottom:20px}}
 .link-btn{background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;cursor:pointer}
+
+.tel-tag{font-weight:500;color:var(--muted)}
