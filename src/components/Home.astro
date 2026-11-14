@@ -2,6 +2,7 @@
 // Pàgina d'inici (CA i ES). Els textos són a src/i18n/ca.json i src/i18n/es.json
 import ca from "../i18n/ca.json";
 import es from "../i18n/es.json";
+import SportDetail from "./SportDetail.astro";
 interface Props { lang: "ca" | "es" }
 const { lang } = Astro.props;
 const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
@@ -17,9 +18,9 @@ const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
   <div class="wrap">
     <a class="logo" href="#inici" aria-label="XarxaPlay, inici"><img src="/img/logo-xarxaplay.png" alt="XarxaPlay Baix Llobregat" width="420" height="233"></a>
     <nav class="main" aria-label="Principal">
-      <a href="#esports"><Fragment set:html={t["nav1"]} /></a>
-      <a href="#esports"><Fragment set:html={t["nav2"]} /></a>
-      <a href="#esports"><Fragment set:html={t["nav3"]} /></a>
+      <a href="#padel"><Fragment set:html={t["nav1"]} /></a>
+      <a href="#pickleball"><Fragment set:html={t["nav2"]} /></a>
+      <a href="#tennis"><Fragment set:html={t["nav3"]} /></a>
       <a href="#escola"><Fragment set:html={t["nav4"]} /></a>
       <a href="#tornejos"><Fragment set:html={t["nav5"]} /></a>
       <a href="#serveis"><Fragment set:html={t["nav6"]} /></a>
@@ -30,9 +31,9 @@ const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
     <button class="menu-btn" type="button" id="menu-btn" aria-expanded="false" aria-controls="mobile-nav"><Fragment set:html={t["menu"]} /></button>
   </div>
   <nav class="mobile-nav" id="mobile-nav" aria-label="Mòbil">
-    <a href="#esports"><Fragment set:html={t["nav1"]} /></a>
-    <a href="#esports"><Fragment set:html={t["nav2"]} /></a>
-    <a href="#esports"><Fragment set:html={t["nav3"]} /></a>
+    <a href="#padel"><Fragment set:html={t["nav1"]} /></a>
+    <a href="#pickleball"><Fragment set:html={t["nav2"]} /></a>
+    <a href="#tennis"><Fragment set:html={t["nav3"]} /></a>
     <a href="#escola"><Fragment set:html={t["nav4"]} /></a>
     <a href="#tornejos"><Fragment set:html={t["nav5"]} /></a>
     <a href="#serveis"><Fragment set:html={t["nav6"]} /></a>
@@ -108,7 +109,7 @@ const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
           </div>
           <div class="actions">
             <a class="btn btn-green" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a>
-            <a class="btn btn-ghost" href="#escola"><Fragment set:html={t["more"]} /></a>
+            <a class="btn btn-ghost" href="#padel"><Fragment set:html={t["more"]} /></a>
           </div>
         </article>
         <article class="sport">
@@ -120,7 +121,7 @@ const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
           </div>
           <div class="actions">
             <a class="btn btn-green" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a>
-            <a class="btn btn-ghost" href="#tornejos"><Fragment set:html={t["more"]} /></a>
+            <a class="btn btn-ghost" href="#pickleball"><Fragment set:html={t["more"]} /></a>
           </div>
         </article>
         <article class="sport">
@@ -132,12 +133,16 @@ const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
           </div>
           <div class="actions">
             <a class="btn btn-green" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a>
-            <a class="btn btn-ghost" href="#tornejos"><Fragment set:html={t["more"]} /></a>
+            <a class="btn btn-ghost" href="#tennis"><Fragment set:html={t["more"]} /></a>
           </div>
         </article>
       </div>
     </div>
   </section>
+
+  <SportDetail id="padel" prefix="d_padel" t={t} main="padel-joc-parella" gallery={["padel-remat", "padel-servei", "padel-jugador"]} secondHref="#escola" />
+  <SportDetail id="pickleball" prefix="d_pick" t={t} main="pickleball-joc" gallery={["pickleball-volea", "pickleball-torneig", "pickleball-pistes"]} reverse secondHref="#que-es-pickleball" />
+  <SportDetail id="tennis" prefix="d_ten" t={t} main="tennis-pista" gallery={["tennis-pista-aeria", "tennis-pista-complex", "tennis-pista-lateral"]} secondHref="#tornejos" />
 
   <section class="block school on-dark" id="escola">
     <div class="wrap">
@@ -287,7 +292,7 @@ const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
         <span class="flogo"><img src="/img/logo-xarxaplay.png" alt="XarxaPlay" width="420" height="233"></span>
         <p style="margin-top:14px"><Fragment set:html={t["ft_about"]} /></p>
       </div>
-      <div><h4><Fragment set:html={t["ft_play"]} /></h4><ul><li><a href="#esports"><Fragment set:html={t["ft_l1"]} /></a></li><li><a href="#esports"><Fragment set:html={t["ft_l2"]} /></a></li><li><a href="#esports"><Fragment set:html={t["ft_l3"]} /></a></li><li><a href="#escola"><Fragment set:html={t["nav4"]} /></a></li><li><a href="#tornejos"><Fragment set:html={t["nav5"]} /></a></li></ul></div>
+      <div><h4><Fragment set:html={t["ft_play"]} /></h4><ul><li><a href="#padel"><Fragment set:html={t["ft_l1"]} /></a></li><li><a href="#pickleball"><Fragment set:html={t["ft_l2"]} /></a></li><li><a href="#tennis"><Fragment set:html={t["ft_l3"]} /></a></li><li><a href="#escola"><Fragment set:html={t["nav4"]} /></a></li><li><a href="#tornejos"><Fragment set:html={t["nav5"]} /></a></li></ul></div>
       <div><h4><Fragment set:html={t["ft_contact"]} /></h4><ul><li>C/ Baldiri Aleu 1-7</li><li>08830 Sant Boi de Llobregat</li><li><a href="tel:+34611755275">+34 611 75 52 75</a></li><li><a href="mailto:info@xarxaplay.es">info@xarxaplay.es</a></li></ul></div>
       <div><h4><Fragment set:html={t["ft_follow"]} /></h4><ul><li><a href="https://www.instagram.com/xarxaplay/">Instagram</a></li><li><a href="https://www.youtube.com/@XarxaPlay">YouTube</a></li><li><a href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu">Playtomic</a></li></ul></div>
     </div>

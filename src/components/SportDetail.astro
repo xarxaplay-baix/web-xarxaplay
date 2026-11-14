@@ -1,0 +1,38 @@
+---
+// Bloc de detall d'un esport (pàdel, pickleball, tennis). Textos a src/i18n/*.json amb el prefix indicat.
+interface Props {
+  id: string;            // àncora del menú: padel, pickleball, tennis
+  prefix: string;        // prefix de les claus de text: d_padel, d_pick, d_ten
+  t: Record<string, string>;
+  main: string;          // foto principal (4:5)
+  gallery: string[];     // 3 fotos quadrades
+  reverse?: boolean;     // foto a l'esquerra
+  dark?: boolean;
+  secondHref: string;    // enllaç del segon botó
+}
+const { id, prefix, t, main, gallery, reverse = false, dark = false, secondHref } = Astro.props;
+const k = (s: string) => t[`${prefix}_${s}`] ?? "";
+const features = [1, 2, 3, 4].map((n) => k(`f${n}`)).filter(Boolean);
+---
+<section class:list={["block", "sport-detail", { reverse, "on-dark": dark }]} id={id} aria-labelledby={`${id}-title`}>
+  <div class="wrap">
+    <div class="sd-text">
+      <p class="eyebrow"><Fragment set:html={k("e")} /></p>
+      <h2 id={`${id}-title`}><Fragment set:html={k("t")} /></h2>
+      <p class="lead"><Fragment set:html={k("p")} /></p>
+      <ul class="sd-feats">
+        {features.map((f) => <li><Fragment set:html={f} /></li>)}
+      </ul>
+      <div class="cta-row">
+        <a class="btn btn-green" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a>
+        <a class="btn btn-ghost" href={secondHref}><Fragment set:html={k("cta2")} /></a>
+      </div>
+    </div>
+    <div class="sd-media">
+      <img class="sd-main" src={`/img/${main}.webp`} width="1000" height="1250" loading="lazy" decoding="async" alt={k("alt0")}>
+      {gallery.map((g, i) => (
+        <img class="sd-thumb" src={`/img/${g}.webp`} width="700" height="700" loading="lazy" decoding="async" alt={k(`alt${i + 1}`)}>
+      ))}
+    </div>
+  </div>
+</section>
