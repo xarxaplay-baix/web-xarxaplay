@@ -1,0 +1,74 @@
+---
+import "../styles/global.css";
+import { site } from "../site.config";
+
+interface Props {
+  lang: "ca" | "es";
+  title: string;
+  description: string;
+  path: string; // ruta d'aquesta pàgina, p. ex. "/" o "/es/"
+  alternates: { ca: string; es: string };
+}
+const { lang, title, description, path, alternates } = Astro.props;
+const abs = (p: string) => new URL(p, site.url).toString();
+
+const ld = {
+  "@context": "https://schema.org",
+  "@type": "SportsActivityLocation",
+  name: "XarxaPlay",
+  description:
+    lang === "es"
+      ? "Centro de deportes de red en Sant Boi de Llobregat (Baix Llobregat): 11 pistas de pádel, 4 de pickleball y 1 de tenis."
+      : "Centre d'esports de xarxa a Sant Boi de Llobregat (Baix Llobregat): 11 pistes de pàdel, 4 de pickleball i 1 de tennis.",
+  telephone: "+34611755275",
+  email: "info@xarxaplay.es",
+  url: abs(path),
+  image: abs("/img/padel-pistes-sant-boi-1600.webp"),
+  logo: abs("/img/logo-xarxaplay.png"),
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "C/ Baldiri Aleu 1-7",
+    postalCode: "08830",
+    addressLocality: "Sant Boi de Llobregat",
+    addressRegion: "Barcelona",
+    addressCountry: "ES",
+  },
+  areaServed: ["Sant Boi de Llobregat", "Baix Llobregat"],
+  containedInPlace: { "@type": "SportsActivityLocation", name: "Complex Esportiu Baldiri Aleu" },
+  sameAs: [
+    "https://www.instagram.com/xarxaplay/",
+    "https://www.youtube.com/@XarxaPlay",
+    "https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu",
+  ],
+};
+---
+<!DOCTYPE html>
+<html lang={lang}>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content={description}>
+{!site.indexable && <meta name="robots" content="noindex, nofollow">}
+<link rel="canonical" href={abs(path)}>
+<link rel="alternate" hreflang="ca" href={abs(alternates.ca)}>
+<link rel="alternate" hreflang="es" href={abs(alternates.es)}>
+<link rel="alternate" hreflang="x-default" href={abs(alternates.ca)}>
+<link rel="icon" href="/img/logo-xarxaplay.png" type="image/png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="XarxaPlay">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={abs(path)}>
+<meta property="og:image" content={abs("/img/padel-pistes-sant-boi-1600.webp")}>
+<meta property="og:locale" content={lang === "es" ? "es_ES" : "ca_ES"}>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,600;0,800;1,700;1,800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json" set:html={JSON.stringify(ld)} />
+</head>
+<body>
+<slot />
+<script is:inline src="/site.js" defer></script>
+</body>
+</html>
