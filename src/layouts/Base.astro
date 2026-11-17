@@ -1,52 +1,58 @@
 ---
+// Tipografies allotjades a la mateixa web (més ràpid i sense enviar dades a Google Fonts, RGPD)
+import "@fontsource/saira/latin-600.css";
+import "@fontsource/saira/latin-800.css";
+import "@fontsource/saira/latin-700-italic.css";
+import "@fontsource/saira/latin-800-italic.css";
+import "@fontsource/barlow/latin-400.css";
+import "@fontsource/barlow/latin-500.css";
+import "@fontsource/barlow/latin-600.css";
+import "@fontsource/barlow/latin-700.css";
+import sairaH from "@fontsource/saira/files/saira-latin-800-italic.woff2?url";
+import barlowR from "@fontsource/barlow/files/barlow-latin-400-normal.woff2?url";
 import "../styles/global.css";
 import { site } from "../site.config";
+import { abs, business, website, breadcrumbList } from "../data/schema";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import type { Lang } from "../data/routes";
 
 interface Props {
-  lang: "ca" | "es";
+  lang: Lang;
   title: string;
   description: string;
   path: string; // ruta d'aquesta pàgina, p. ex. "/" o "/es/"
   alternates: { ca: string; es: string };
+  ogImage?: string; // ruta d'una imatge 1200×630
+  ogType?: "website" | "article";
+  pageType?: string; // tipus schema.org de la pàgina (WebPage, CollectionPage, AboutPage...)
+  crumbs?: { name: string; url: string }[]; // ruta de navegació (sense la pàgina d'inici)
+  schema?: Record<string, unknown>[]; // nodes JSON-LD addicionals
 }
-const { lang, title, description, path, alternates } = Astro.props;
-const abs = (p: string) => new URL(p, site.url).toString();
+const { lang, title, description, path, alternates, ogImage = "/img/og-xarxaplay.jpg", ogType = "website", pageType = "WebPage", crumbs = [], schema = [] } = Astro.props;
+const url = abs(path);
+const homeName = lang === "es" ? "Inicio" : "Inici";
+const fullCrumbs = crumbs.length ? [{ name: homeName, url: lang === "es" ? "/es/" : "/" }, ...crumbs] : [];
 
-const ld = {
-  "@context": "https://schema.org",
-  "@type": "SportsActivityLocation",
-  name: "XarxaPlay",
-  description:
-    lang === "es"
-      ? "Centro de deportes de red en Sant Boi de Llobregat (Baix Llobregat): 11 pistas de pádel, 4 de pickleball y 1 de tenis."
-      : "Centre d'esports de xarxa a Sant Boi de Llobregat (Baix Llobregat): 11 pistes de pàdel, 4 de pickleball i 1 de tennis.",
-  telephone: "+34611755275",
-  contactPoint: [
-    { "@type": "ContactPoint", telephone: "+34611755275", contactType: "customer service", availableLanguage: ["ca", "es"] },
-    { "@type": "ContactPoint", telephone: "+34936302838", contactType: "customer service", availableLanguage: ["ca", "es"] },
-  ],
-  email: "info@xarxaplay.es",
-  url: abs(path),
-  image: abs("/img/padel-pistes-sant-boi-1600.webp"),
-  logo: abs("/img/logo-xarxaplay.png"),
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "C/ Baldiri Aleu 1-7",
-    postalCode: "08830",
-    addressLocality: "Sant Boi de Llobregat",
-    addressRegion: "Barcelona",
-    addressCountry: "ES",
+const graph: Record<string, unknown>[] = [
+  business(lang),
+  website(),
+  {
+    "@type": pageType,
+    "@id": url + "#webpage",
+    url,
+    name: title,
+    description,
+    inLanguage: lang,
+    isPartOf: { "@id": abs("/#website") },
+    about: { "@id": abs("/#xarxaplay") },
+    primaryImageOfPage: { "@type": "ImageObject", url: abs(ogImage) },
+    ...(fullCrumbs.length ? { breadcrumb: { "@id": url + "#breadcrumb" } } : {}),
   },
-  areaServed: ["Sant Boi de Llobregat", "Baix Llobregat"],
-  containedInPlace: { "@type": "SportsActivityLocation", name: "Complex Esportiu Baldiri Aleu" },
-  hasMap: "https://www.google.com/maps/search/?api=1&query=XarxaPlay%2C+Carrer+Baldiri+Aleu+1-7%2C+Sant+Boi+de+Llobregat",
-  sameAs: [
-    "https://www.google.com/search?kgmid=/g/11xvxqqcgc",
-    "https://www.instagram.com/xarxaplay/",
-    "https://www.youtube.com/@XarxaPlay",
-    "https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu",
-  ],
-};
+  ...(fullCrumbs.length ? [breadcrumbList(path, fullCrumbs)] : []),
+  ...schema,
+];
+const ld = { "@context": "https://schema.org", "@graph": graph };
 ---
 <!DOCTYPE html>
 <html lang={lang}>
@@ -55,22 +61,31 @@ const ld = {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content={description}>
-{!site.indexable && <meta name="robots" content="noindex, nofollow">}
-<link rel="canonical" href={abs(path)}>
+{site.indexable
+  ? <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  : <meta name="robots" content="noindex, nofollow">}
+<link rel="canonical" href={url}>
 <link rel="alternate" hreflang="ca" href={abs(alternates.ca)}>
 <link rel="alternate" hreflang="es" href={abs(alternates.es)}>
 <link rel="alternate" hreflang="x-default" href={abs(alternates.ca)}>
-<link rel="icon" href="/img/logo-xarxaplay.png" type="image/png">
-<meta property="og:type" content="website">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/img/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#4C7320">
+<meta property="og:type" content={ogType}>
 <meta property="og:site_name" content="XarxaPlay">
 <meta property="og:title" content={title}>
 <meta property="og:description" content={description}>
-<meta property="og:url" content={abs(path)}>
-<meta property="og:image" content={abs("/img/padel-pistes-sant-boi-1600.webp")}>
+<meta property="og:url" content={url}>
+<meta property="og:image" content={abs(ogImage)}>
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:locale" content={lang === "es" ? "es_ES" : "ca_ES"}>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,600;0,800;1,700;1,800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta property="og:locale:alternate" content={lang === "es" ? "ca_ES" : "es_ES"}>
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href={sairaH} as="font" type="font/woff2" crossorigin>
+<link rel="preload" href={barlowR} as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json" set:html={JSON.stringify(ld)} />
 <!-- Google tag (gtag.js) amb Consent Mode v2: tot denegat fins que el visitant accepti -->
 <script is:inline define:vars={{ gaId: site.gaId }}>
@@ -85,7 +100,21 @@ gtag('config', gaId);
 <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${site.gaId}`}></script>
 </head>
 <body>
+<a class="skip" href="#top">{lang === "es" ? "Saltar al contenido" : "Salta al contingut"}</a>
+<Header lang={lang} alternates={alternates} />
+{fullCrumbs.length > 0 && (
+  <nav class="crumbs" aria-label={lang === "es" ? "Ruta de navegación" : "Ruta de navegació"}>
+    <ol class="wrap">
+      {fullCrumbs.map((c, i) => i < fullCrumbs.length - 1
+        ? <li><a href={c.url} set:html={c.name} /></li>
+        : <li aria-current="page" set:html={c.name} />)}
+    </ol>
+  </nav>
+)}
+<main id="top">
 <slot />
+</main>
+<Footer lang={lang} />
 <script is:inline src="/site.js" defer></script>
 </body>
 </html>

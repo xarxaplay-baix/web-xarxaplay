@@ -1,0 +1,41 @@
+---
+import { texts } from "../i18n/t";
+import { routes, homeAnchor, type Lang } from "../data/routes";
+import { site } from "../site.config";
+interface Props { lang: Lang; alternates: { ca: string; es: string } }
+const { lang, alternates } = Astro.props;
+const t = texts(lang);
+const r = (k: keyof typeof routes) => routes[k][lang];
+const links = [
+  { href: r("padel"), label: t["nav1"] },
+  { href: r("pickleball"), label: t["nav2"] },
+  { href: r("tennis"), label: t["nav3"] },
+  { href: r("escola"), label: t["nav4"] },
+  { href: homeAnchor(lang, "tornejos"), label: t["nav5"] },
+  { href: homeAnchor(lang, "serveis"), label: t["nav6"] },
+  { href: r("blog"), label: t["nav8"] },
+  { href: homeAnchor(lang, "contacte"), label: t["nav7"] },
+];
+const here = Astro.url.pathname;
+const cur = (href: string) => (href === here ? "page" : undefined);
+---
+<div class="topbar">
+  <div class="wrap">
+    <span><a href={`tel:${site.phone}`}>+34 611 75 52 75</a><span class="hide-sm"> · C/ Baldiri Aleu 1-7, Sant Boi de Llobregat</span></span>
+    <nav class="lang" aria-label={t.lang_label}><a href={alternates.ca} hreflang="ca" lang="ca" aria-current={lang === "ca" ? "page" : undefined}>CA</a><a href={alternates.es} hreflang="es" lang="es" aria-current={lang === "es" ? "page" : undefined}>ES</a></nav>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href={r("home")} aria-label={lang === "es" ? "XarxaPlay, inicio" : "XarxaPlay, inici"}><img src="/img/logo-xarxaplay-200.webp" srcset="/img/logo-xarxaplay-200.webp 200w, /img/logo-xarxaplay-400.webp 400w" sizes="100px" alt="XarxaPlay Baix Llobregat" width="420" height="233"></a>
+    <nav class="main" aria-label={lang === "es" ? "Principal" : "Principal"}>
+      {links.map((l) => <a href={l.href} aria-current={cur(l.href)} set:html={l.label} />)}
+    </nav>
+    <a class="btn btn-green" href={site.playtomic}><Fragment set:html={t["cta_book"]} /></a>
+    <button class="menu-btn" type="button" id="menu-btn" aria-expanded="false" aria-controls="mobile-nav"><Fragment set:html={t["menu"]} /></button>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label={lang === "es" ? "Menú móvil" : "Menú mòbil"}>
+    {links.map((l) => <a href={l.href} aria-current={cur(l.href)} set:html={l.label} />)}
+  </nav>
+</header>

@@ -1,0 +1,31 @@
+---
+// Pàgina pròpia d'un esport (pàdel, pickleball o tennis) en CA o ES.
+import Base from "../layouts/Base.astro";
+import SportDetail from "./SportDetail.astro";
+import FaqList from "./FaqList.astro";
+import Related from "./Related.astro";
+import FinalCta from "./FinalCta.astro";
+import { sports } from "../data/pages";
+import { routes, resolveLinks, postByKey, type Lang } from "../data/routes";
+import { faqPage } from "../data/schema";
+import { texts } from "../i18n/t";
+interface Props { lang: Lang; sport: "padel" | "pickleball" | "tennis" }
+const { lang, sport } = Astro.props;
+const s = sports[sport];
+const p = s[lang];
+const t = texts(lang);
+const path = routes[sport][lang];
+const second = sport === "padel" ? `${routes.escola[lang]}#prova` : postByKey(lang, sport === "pickleball" ? "pickleball" : "tornejos").url;
+---
+<Base lang={lang} path={path} alternates={routes[sport]} title={p.title} description={p.description} ogImage={s.og}
+  crumbs={[{ name: p.crumb, url: path }]} schema={[faqPage(path, p.faq, lang)]}>
+  <SportDetail id={sport} prefix={s.prefix} t={t} main={s.main} gallery={s.gallery} secondHref={second} h1={p.h1} />
+  <section class="block prose-block" id="info">
+    <div class="wrap prose">
+      {p.sections.map((sec) => <><h2 set:html={sec.h2} /><Fragment set:html={resolveLinks(sec.html, lang)} /></>)}
+    </div>
+  </section>
+  <FaqList items={p.faq} eyebrow={t["fq_eyebrow"]} title={p.h1.replace(/ a Sant Boi.*| en Sant Boi.*/, "") + (lang === "es" ? ": preguntas frecuentes" : ": preguntes freqüents")} />
+  <Related lang={lang} keys={s.related} />
+  <FinalCta lang={lang} />
+</Base>

@@ -162,7 +162,6 @@
  "art_cta": "Ven a jugar a XarxaPlay, Sant Boi de Llobregat.",
  "rel_h": "También te puede interesar",
  "nav8": "Blog",
- "es_note": "Prototipo: el texto del artículo está en catalán; la versión en castellano estará en la web final.",
  "lang_label": "Idioma",
  "img_slide_padel": "Pistas de pádel de XarxaPlay en Sant Boi de Llobregat",
  "img_slide_pick": "Pistas de pickleball de XarxaPlay en el Baix Llobregat",
@@ -215,5 +214,9 @@
  "ck_accept": "Acepto",
  "ck_reject": "Rechazo",
  "ck_settings": "Configuración de cookies",
- "tel_fix": "(fijo)"
+ "tel_fix": "(fijo)",
+ "bl_all": "Ver todos los artículos",
+ "more_padel": "Pistas de pádel",
+ "more_pick": "Pistas de pickleball",
+ "more_ten": "Pista de tenis"
 }

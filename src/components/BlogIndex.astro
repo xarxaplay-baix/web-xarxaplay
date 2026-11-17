@@ -1,0 +1,37 @@
+---
+import Base from "../layouts/Base.astro";
+import PostCard from "./PostCard.astro";
+import FinalCta from "./FinalCta.astro";
+import { routes, postsFor, type Lang } from "../data/routes";
+import { abs } from "../data/schema";
+import { texts } from "../i18n/t";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = texts(lang);
+const path = routes.blog[lang];
+const list = postsFor(lang);
+const es = lang === "es";
+const title = es ? "Blog de pádel, pickleball y tenis en Sant Boi | XarxaPlay" : "Blog de pàdel, pickleball i tennis a Sant Boi | XarxaPlay";
+const description = es
+  ? "Consejos, salud, americanas, torneos y escuela: artículos sobre pádel, pickleball y tenis en Sant Boi de Llobregat y el Baix Llobregat."
+  : "Consells, salut, americanes, tornejos i escola: articles sobre pàdel, pickleball i tennis a Sant Boi de Llobregat i al Baix Llobregat.";
+const itemList = {
+  "@type": "ItemList",
+  "@id": abs(path) + "#list",
+  itemListElement: list.map((p, i) => ({ "@type": "ListItem", position: i + 1, url: abs(p.url), name: p.title })),
+};
+---
+<Base lang={lang} path={path} alternates={routes.blog} title={title} description={description} pageType="CollectionPage"
+  crumbs={[{ name: "Blog", url: path }]} schema={[itemList]}>
+  <section class="block">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow"><Fragment set:html={t["bl_eyebrow"]} /></p>
+        <h1 class="page-h1"><Fragment set:html={t["bl_h2"]} /></h1>
+        <p class="lead"><Fragment set:html={t["bl_lead"]} /></p>
+      </div>
+      <div class="posts">{list.map((p) => <PostCard post={p} t={t} level="h2" />)}</div>
+    </div>
+  </section>
+  <FinalCta lang={lang} />
+</Base>

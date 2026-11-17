@@ -1,0 +1,13 @@
+---
+import type { Faq } from "../data/faq";
+interface Props { items: Faq[]; eyebrow: string; title: string; id?: string }
+const { items, eyebrow, title, id = "faq" } = Astro.props;
+---
+<section class="block" id={id}>
+  <div class="wrap">
+    <div class="head"><p class="eyebrow" set:html={eyebrow} /><h2 set:html={title} /></div>
+    <div class="faq">
+      {items.map((f, i) => <details open={i === 0}><summary set:html={f.q} /><p set:html={f.a} /></details>)}
+    </div>
+  </div>
+</section>

@@ -1,48 +1,16 @@
 ---
 // Pàgina d'inici (CA i ES). Els textos són a src/i18n/ca.json i src/i18n/es.json
-import ca from "../i18n/ca.json";
-import es from "../i18n/es.json";
-import SportDetail from "./SportDetail.astro";
-interface Props { lang: "ca" | "es" }
+import { texts } from "../i18n/t";
+import { routes, postsFor, type Lang } from "../data/routes";
+import { homeFaq } from "../data/faq";
+import { site } from "../site.config";
+import TrialForm from "./TrialForm.astro";
+import PostCard from "./PostCard.astro";
+interface Props { lang: Lang }
 const { lang } = Astro.props;
-const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
+const t = texts(lang);
+const r = (k: keyof typeof routes) => routes[k][lang];
 ---
-<div class="topbar">
-  <div class="wrap">
-    <span><a href="tel:+34611755275">+34 611 75 52 75</a><span class="hide-sm"> · C/ Baldiri Aleu 1-7, Sant Boi de Llobregat</span></span>
-    <nav class="lang" aria-label={t.lang_label}><a href="/" hreflang="ca" lang="ca" aria-current={lang === "ca" ? "page" : undefined}>CA</a><a href="/es/" hreflang="es" lang="es" aria-current={lang === "es" ? "page" : undefined}>ES</a></nav>
-  </div>
-</div>
-
-<header class="site">
-  <div class="wrap">
-    <a class="logo" href="#inici" aria-label="XarxaPlay, inici"><img src="/img/logo-xarxaplay.png" alt="XarxaPlay Baix Llobregat" width="420" height="233"></a>
-    <nav class="main" aria-label="Principal">
-      <a href="#padel"><Fragment set:html={t["nav1"]} /></a>
-      <a href="#pickleball"><Fragment set:html={t["nav2"]} /></a>
-      <a href="#tennis"><Fragment set:html={t["nav3"]} /></a>
-      <a href="#escola"><Fragment set:html={t["nav4"]} /></a>
-      <a href="#tornejos"><Fragment set:html={t["nav5"]} /></a>
-      <a href="#serveis"><Fragment set:html={t["nav6"]} /></a>
-      <a href="#blog"><Fragment set:html={t["nav8"]} /></a>
-      <a href="#contacte"><Fragment set:html={t["nav7"]} /></a>
-    </nav>
-    <a class="btn btn-green" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a>
-    <button class="menu-btn" type="button" id="menu-btn" aria-expanded="false" aria-controls="mobile-nav"><Fragment set:html={t["menu"]} /></button>
-  </div>
-  <nav class="mobile-nav" id="mobile-nav" aria-label="Mòbil">
-    <a href="#padel"><Fragment set:html={t["nav1"]} /></a>
-    <a href="#pickleball"><Fragment set:html={t["nav2"]} /></a>
-    <a href="#tennis"><Fragment set:html={t["nav3"]} /></a>
-    <a href="#escola"><Fragment set:html={t["nav4"]} /></a>
-    <a href="#tornejos"><Fragment set:html={t["nav5"]} /></a>
-    <a href="#serveis"><Fragment set:html={t["nav6"]} /></a>
-    <a href="#blog"><Fragment set:html={t["nav8"]} /></a>
-      <a href="#contacte"><Fragment set:html={t["nav7"]} /></a>
-  </nav>
-</header>
-
-<main id="top">
   <section class="slider" id="inici" aria-roledescription="carrusel" aria-label="Destacats">
 <div class="slide is-active" role="group" aria-roledescription="diapositiva" aria-label="1 de 4">
 <img class="slide-art" src="/img/padel-pistes-sant-boi-1600.webp" srcset="/img/padel-pistes-sant-boi-800.webp 800w, /img/padel-pistes-sant-boi-1600.webp 1600w" sizes="100vw" width="1600" height="900" fetchpriority="high" decoding="async" alt={t["img_slide_padel"]}>
@@ -50,7 +18,7 @@ const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
 <p class="eyebrow"><Fragment set:html={t["sl_padel_e"]} /></p>
 <h1 class="slide-title"><Fragment set:html={t["sl_padel_t"]} /></h1>
 <p class="slide-text"><Fragment set:html={t["sl_padel_p"]} /></p>
-<div class="cta-row"><a class="btn btn-ball" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a><a class="btn btn-ghost light" href="#escola"><Fragment set:html={t["cta_trial"]} /></a></div></div></div>
+<div class="cta-row"><a class="btn btn-ball" href={site.playtomic}><Fragment set:html={t["cta_book"]} /></a><a class="btn btn-ghost light" href="#escola"><Fragment set:html={t["cta_trial"]} /></a></div></div></div>
 </div>
 <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="2 de 4" aria-hidden="true" inert>
 <img class="slide-art" src="/img/pickleball-pistes-sant-boi-1600.webp" srcset="/img/pickleball-pistes-sant-boi-800.webp 800w, /img/pickleball-pistes-sant-boi-1600.webp 1600w" sizes="100vw" width="1600" height="900" loading="lazy" decoding="async" alt={t["img_slide_pick"]}>
@@ -58,7 +26,7 @@ const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
 <p class="eyebrow"><Fragment set:html={t["sl_pickleball_e"]} /></p>
 <h2 class="slide-title"><Fragment set:html={t["sl_pickleball_t"]} /></h2>
 <p class="slide-text"><Fragment set:html={t["sl_pickleball_p"]} /></p>
-<div class="cta-row"><a class="btn btn-ball" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a><a class="btn btn-ghost light" href="#escola"><Fragment set:html={t["cta_trial"]} /></a></div></div></div>
+<div class="cta-row"><a class="btn btn-ball" href={site.playtomic}><Fragment set:html={t["cta_book"]} /></a><a class="btn btn-ghost light" href="#escola"><Fragment set:html={t["cta_trial"]} /></a></div></div></div>
 </div>
 <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="3 de 4" aria-hidden="true" inert>
 <img class="slide-art" src="/img/tennis-pista-sant-boi-1600.webp" srcset="/img/tennis-pista-sant-boi-800.webp 800w, /img/tennis-pista-sant-boi-1600.webp 1600w" sizes="100vw" width="1600" height="900" loading="lazy" decoding="async" alt={t["img_slide_ten"]}>
@@ -66,7 +34,7 @@ const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
 <p class="eyebrow"><Fragment set:html={t["sl_tennis_e"]} /></p>
 <h2 class="slide-title"><Fragment set:html={t["sl_tennis_t"]} /></h2>
 <p class="slide-text"><Fragment set:html={t["sl_tennis_p"]} /></p>
-<div class="cta-row"><a class="btn btn-ball" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a><a class="btn btn-ghost light" href="#escola"><Fragment set:html={t["cta_trial"]} /></a></div></div></div>
+<div class="cta-row"><a class="btn btn-ball" href={site.playtomic}><Fragment set:html={t["cta_book"]} /></a><a class="btn btn-ghost light" href="#escola"><Fragment set:html={t["cta_trial"]} /></a></div></div></div>
 </div>
 <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="4 de 4" aria-hidden="true" inert>
 <img class="slide-art" src="/img/padel-pistes-baix-llobregat-1600.webp" srcset="/img/padel-pistes-baix-llobregat-800.webp 800w, /img/padel-pistes-baix-llobregat-1600.webp 1600w" sizes="100vw" width="1600" height="900" loading="lazy" decoding="async" alt={t["img_slide_escola"]}>
@@ -74,7 +42,7 @@ const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
 <p class="eyebrow"><Fragment set:html={t["sl_escola_e"]} /></p>
 <h2 class="slide-title"><Fragment set:html={t["sl_escola_t"]} /></h2>
 <p class="slide-text"><Fragment set:html={t["sl_escola_p"]} /></p>
-<div class="cta-row"><a class="btn btn-ball" href="#escola"><Fragment set:html={t["cta_trial"]} /></a><a class="btn btn-ghost light" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a></div></div></div>
+<div class="cta-row"><a class="btn btn-ball" href="#escola"><Fragment set:html={t["cta_trial"]} /></a><a class="btn btn-ghost light" href={site.playtomic}><Fragment set:html={t["cta_book"]} /></a></div></div></div>
 </div>
 <div class="slider-ui wrap"><button type="button" class="sl-arrow" id="sl-prev" aria-label="Anterior">&#8592;</button><div class="sl-dots">
 <button type="button" class="sl-dot" aria-label="Diapositiva 1" aria-current="true"></button>
@@ -108,8 +76,8 @@ const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
             <p><Fragment set:html={t["padel_p"]} /></p>
           </div>
           <div class="actions">
-            <a class="btn btn-green" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a>
-            <a class="btn btn-ghost" href="#padel"><Fragment set:html={t["more"]} /></a>
+            <a class="btn btn-green" href={site.playtomic}><Fragment set:html={t["cta_book"]} /></a>
+            <a class="btn btn-ghost" href={r("padel")}><Fragment set:html={t["more_padel"]} /></a>
           </div>
         </article>
         <article class="sport">
@@ -120,8 +88,8 @@ const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
             <p><Fragment set:html={t["pick_p"]} /></p>
           </div>
           <div class="actions">
-            <a class="btn btn-green" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a>
-            <a class="btn btn-ghost" href="#pickleball"><Fragment set:html={t["more"]} /></a>
+            <a class="btn btn-green" href={site.playtomic}><Fragment set:html={t["cta_book"]} /></a>
+            <a class="btn btn-ghost" href={r("pickleball")}><Fragment set:html={t["more_pick"]} /></a>
           </div>
         </article>
         <article class="sport">
@@ -132,17 +100,14 @@ const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
             <p><Fragment set:html={t["ten_p"]} /></p>
           </div>
           <div class="actions">
-            <a class="btn btn-green" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a>
-            <a class="btn btn-ghost" href="#tennis"><Fragment set:html={t["more"]} /></a>
+            <a class="btn btn-green" href={site.playtomic}><Fragment set:html={t["cta_book"]} /></a>
+            <a class="btn btn-ghost" href={r("tennis")}><Fragment set:html={t["more_ten"]} /></a>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <SportDetail id="padel" prefix="d_padel" t={t} main="padel-joc-parella" gallery={["padel-remat", "padel-servei", "padel-jugador"]} secondHref="#escola" />
-  <SportDetail id="pickleball" prefix="d_pick" t={t} main="pickleball-joc" gallery={["pickleball-volea", "pickleball-torneig", "pickleball-pistes"]} reverse secondHref="#que-es-pickleball" />
-  <SportDetail id="tennis" prefix="d_ten" t={t} main="tennis-pista" gallery={["tennis-pista-aeria", "tennis-pista-complex", "tennis-pista-lateral"]} secondHref="#tornejos" />
 
   <section class="block school on-dark" id="escola">
     <div class="wrap">
@@ -156,25 +121,7 @@ const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
           <li><div><b><Fragment set:html={t["s3b"]} /></b><span><Fragment set:html={t["s3"]} /></span></div></li>
         </ol>
       </div>
-      <form class="trial" id="trial" novalidate>
-        <h3><Fragment set:html={t["f_h3"]} /></h3>
-        <div class="field"><label for="f-name"><Fragment set:html={t["f_name"]} /></label><input id="f-name" name="name" autocomplete="name" required></div>
-        <div class="two">
-          <div class="field"><label for="f-phone"><Fragment set:html={t["f_phone"]} /></label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required></div>
-          <div class="field"><label for="f-who"><Fragment set:html={t["f_who"]} /></label>
-            <select id="f-who" name="who"><option><Fragment set:html={t["o_adult"]} /></option><option><Fragment set:html={t["o_kid"]} /></option></select></div>
-        </div>
-        <div class="two">
-          <div class="field"><label for="f-level"><Fragment set:html={t["f_level"]} /></label>
-            <select id="f-level" name="level"><option><Fragment set:html={t["l0"]} /></option><option><Fragment set:html={t["l1"]} /></option><option><Fragment set:html={t["l2"]} /></option><option><Fragment set:html={t["l3"]} /></option></select></div>
-          <div class="field"><label for="f-time"><Fragment set:html={t["f_time"]} /></label>
-            <select id="f-time" name="time"><option><Fragment set:html={t["t1"]} /></option><option><Fragment set:html={t["t2"]} /></option><option selected><Fragment set:html={t["t3"]} /></option><option><Fragment set:html={t["t4"]} /></option></select></div>
-        </div>
-        <label class="check" for="f-ok"><input id="f-ok" type="checkbox" required> <span><Fragment set:html={t["f_ok"]} /></span></label>
-        <button class="btn btn-ball" type="submit"><Fragment set:html={t["f_send"]} /></button>
-        <p class="ok" role="status"><Fragment set:html={t["f_okmsg"]} /></p>
-        <p class="note"><Fragment set:html={t["f_note"]} /></p>
-      </form>
+      <TrialForm lang={lang} />
     </div>
   </section>
 
@@ -227,7 +174,7 @@ const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
           <a href="tel:+34936302838">+34 936 30 28 38 <small class="tel-tag"><Fragment set:html={t["tel_fix"]} /></small></a>
           <a href="mailto:info@xarxaplay.es">info@xarxaplay.es</a>
         </div>
-        <div class="cta-row"><a class="btn btn-green" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a><a class="btn btn-ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=XarxaPlay%2C+Carrer+Baldiri+Aleu+1-7%2C+08830+Sant+Boi+de+Llobregat" rel="noopener" target="_blank" data-ev="com_arribar"><Fragment set:html={t["howto"]} /></a></div>
+        <div class="cta-row"><a class="btn btn-green" href={site.playtomic}><Fragment set:html={t["cta_book"]} /></a><a class="btn btn-ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=XarxaPlay%2C+Carrer+Baldiri+Aleu+1-7%2C+08830+Sant+Boi+de+Llobregat" rel="noopener" target="_blank" data-ev="com_arribar"><Fragment set:html={t["howto"]} /></a></div>
       </div>
       <div class="map" id="map" data-src={`https://www.google.com/maps?q=XarxaPlay%2C+Carrer+Baldiri+Aleu+1-7%2C+08830+Sant+Boi+de+Llobregat&hl=${lang}&z=16&output=embed`} data-title={t["map_title"]}>
         <div class="map-ph">
@@ -243,40 +190,15 @@ const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
 <div class="head"><p class="eyebrow"><Fragment set:html={t["bl_eyebrow"]} /></p><h2><Fragment set:html={t["bl_h2"]} /></h2>
 <p class="lead"><Fragment set:html={t["bl_lead"]} /></p></div>
 <div class="posts">
-<article class="post"><a class="post-link" href="#beneficis-jugar-padel">
-<div class="post-img"><svg class="ill" style="background:#4C7320" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><rect width="600" height="340" fill="#4C7320"/><path d="M300 270 C220 210 170 160 170 115 C170 80 198 55 230 55 C258 55 280 72 300 98 C320 72 342 55 370 55 C402 55 430 80 430 115 C430 160 380 210 300 270Z" fill="#E6E200"/><path d="M60 170 L200 170 L230 120 L265 220 L300 140 L325 170 L540 170" stroke="#fff" stroke-width="10" fill="none" stroke-linejoin="round"/></svg><span class="tagpill"><Fragment set:html={t["b_beneficis-jugar-padel_g"]} /></span></div>
-<div class="post-body"><h3><Fragment set:html={t["b_beneficis-jugar-padel_t"]} /></h3><p><Fragment set:html={t["b_beneficis-jugar-padel_x"]} /></p>
-<span class="post-more"><span><Fragment set:html={t["read_more"]} /></span> · 5 min</span></div></a></article>
-<article class="post"><a class="post-link" href="#que-es-pickleball">
-<div class="post-img"><svg class="ill" style="background:#2D5C8C" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><rect width="600" height="340" fill="#2D5C8C"/><rect x="150" y="60" width="170" height="190" rx="70" fill="#E6E200" transform="rotate(-18 235 155)"/><rect x="250" y="225" width="34" height="95" rx="12" fill="#121410" transform="rotate(-18 235 155)"/><circle cx="420" cy="190" r="58" fill="#fff"/><g fill="#2D5C8C"><circle cx="400" cy="170" r="9"/><circle cx="440" cy="170" r="9"/><circle cx="420" cy="205" r="9"/><circle cx="388" cy="205" r="7"/><circle cx="452" cy="205" r="7"/></g></svg><span class="tagpill"><Fragment set:html={t["b_que-es-pickleball_g"]} /></span></div>
-<div class="post-body"><h3><Fragment set:html={t["b_que-es-pickleball_t"]} /></h3><p><Fragment set:html={t["b_que-es-pickleball_x"]} /></p>
-<span class="post-more"><span><Fragment set:html={t["read_more"]} /></span> · 4 min</span></div></a></article>
-<article class="post"><a class="post-link" href="#americana-padel-sant-boi">
-<div class="post-img"><svg class="ill" style="background:#1F3110" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><rect width="600" height="340" fill="#1F3110"/><g fill="#E6E200"><circle cx="200" cy="110" r="34"/><circle cx="400" cy="110" r="34"/><circle cx="200" cy="240" r="34"/></g><circle cx="400" cy="240" r="34" fill="#fff"/><path d="M250 92 C290 70 320 70 352 92" stroke="#fff" stroke-width="8" fill="none"/><path d="M352 258 C320 282 290 282 250 258" stroke="#fff" stroke-width="8" fill="none"/><path d="M342 80 L356 95 L336 102 M258 270 L244 255 L264 248" stroke="#fff" stroke-width="8" fill="none"/></svg><span class="tagpill"><Fragment set:html={t["b_americana-padel-sant-boi_g"]} /></span></div>
-<div class="post-body"><h3><Fragment set:html={t["b_americana-padel-sant-boi_t"]} /></h3><p><Fragment set:html={t["b_americana-padel-sant-boi_x"]} /></p>
-<span class="post-more"><span><Fragment set:html={t["read_more"]} /></span> · 4 min</span></div></a></article>
-<article class="post"><a class="post-link" href="#escola-padel-sant-boi">
-<div class="post-img"><svg class="ill" style="background:#E6E200" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><rect width="600" height="340" fill="#E6E200"/><rect x="130" y="210" width="110" height="70" fill="#4C7320"/><rect x="245" y="150" width="110" height="130" fill="#2F4A16"/><rect x="360" y="85" width="110" height="195" fill="#121410"/><g font-family="Saira,Arial" font-weight="800" font-style="italic" font-size="40" fill="#fff" text-anchor="middle"><text x="185" y="260">1</text><text x="300" y="230">2</text><text x="415" y="200">3</text></g><circle cx="415" cy="50" r="22" fill="#fff" stroke="#121410" stroke-width="5"/></svg><span class="tagpill"><Fragment set:html={t["b_escola-padel-sant-boi_g"]} /></span></div>
-<div class="post-body"><h3><Fragment set:html={t["b_escola-padel-sant-boi_t"]} /></h3><p><Fragment set:html={t["b_escola-padel-sant-boi_x"]} /></p>
-<span class="post-more"><span><Fragment set:html={t["read_more"]} /></span> · 4 min</span></div></a></article>
-<article class="post"><a class="post-link" href="#tennis-sant-boi">
-<div class="post-img"><svg class="ill" style="background:#B4552E" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><rect width="600" height="340" fill="#B4552E"/><circle cx="240" cy="170" r="95" fill="#E6E200"/><path d="M165 110 C215 140 215 200 165 230 M315 110 C265 140 265 200 315 230" stroke="#fff" stroke-width="9" fill="none"/><ellipse cx="420" cy="140" rx="62" ry="80" fill="none" stroke="#fff" stroke-width="12" transform="rotate(25 420 140)"/><rect x="452" y="205" width="22" height="95" rx="8" fill="#121410" transform="rotate(25 420 140)"/></svg><span class="tagpill"><Fragment set:html={t["b_tennis-sant-boi_g"]} /></span></div>
-<div class="post-body"><h3><Fragment set:html={t["b_tennis-sant-boi_t"]} /></h3><p><Fragment set:html={t["b_tennis-sant-boi_x"]} /></p>
-<span class="post-more"><span><Fragment set:html={t["read_more"]} /></span> · 4 min</span></div></a></article>
-<article class="post"><a class="post-link" href="#tornejos-baix-llobregat">
-<div class="post-img"><svg class="ill" style="background:#121410" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><rect width="600" height="340" fill="#121410"/><path d="M230 70 L370 70 L370 130 C370 180 340 210 300 215 C260 210 230 180 230 130Z" fill="#E6E200"/><path d="M230 90 L185 90 C185 140 205 160 235 165 M370 90 L415 90 C415 140 395 160 365 165" stroke="#E6E200" stroke-width="10" fill="none"/><rect x="285" y="212" width="30" height="45" fill="#E6E200"/><rect x="245" y="255" width="110" height="26" rx="4" fill="#4C7320"/><g fill="#fff" opacity=".7"><circle cx="110" cy="80" r="6"/><circle cx="500" cy="230" r="6"/><circle cx="480" cy="70" r="4"/><circle cx="130" cy="250" r="4"/></g></svg><span class="tagpill"><Fragment set:html={t["b_tornejos-baix-llobregat_g"]} /></span></div>
-<div class="post-body"><h3><Fragment set:html={t["b_tornejos-baix-llobregat_t"]} /></h3><p><Fragment set:html={t["b_tornejos-baix-llobregat_x"]} /></p>
-<span class="post-more"><span><Fragment set:html={t["read_more"]} /></span> · 5 min</span></div></a></article>
-</div></div></section>
+{postsFor(lang).map((p) => <PostCard post={p} t={t} />)}
+</div>
+<div class="cta-row"><a class="btn btn-ghost" href={r("blog")}><Fragment set:html={t["bl_all"]} /></a></div>
+</div></section>
   <section class="block" id="faq">
     <div class="wrap">
       <div class="head"><p class="eyebrow"><Fragment set:html={t["fq_eyebrow"]} /></p><h2><Fragment set:html={t["fq_h2"]} /></h2></div>
       <div class="faq">
-        <details open><summary><Fragment set:html={t["q1"]} /></summary><p><Fragment set:html={t["a1"]} /></p></details>
-        <details><summary><Fragment set:html={t["q2"]} /></summary><p><Fragment set:html={t["a2"]} /></p></details>
-        <details><summary><Fragment set:html={t["q3"]} /></summary><p><Fragment set:html={t["a3"]} /></p></details>
-        <details><summary><Fragment set:html={t["q4"]} /></summary><p><Fragment set:html={t["a4"]} /></p></details>
-        <details><summary><Fragment set:html={t["q5"]} /></summary><p><Fragment set:html={t["a5"]} /></p></details>
+        {homeFaq(lang).map((f, i) => <details open={i === 0}><summary set:html={f.q} /><p set:html={f.a} /></details>)}
       </div>
     </div>
   </section>
@@ -285,176 +207,8 @@ const t: Record<string, string> = lang === "es" ? { ...ca, ...es } : ca;
     <div class="wrap">
       <h2><Fragment set:html={t["fin_h2"]} /></h2>
       <div class="cta-row" style="margin:0">
-        <a class="btn btn-green" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a>
+        <a class="btn btn-green" href={site.playtomic}><Fragment set:html={t["cta_book"]} /></a>
         <a class="btn btn-ghost" href="#escola"><Fragment set:html={t["cta_trial"]} /></a>
       </div>
     </div>
   </section>
-</main>
-
-<footer>
-  <div class="wrap">
-    <div class="grid">
-      <div>
-        <span class="flogo"><img src="/img/logo-xarxaplay.png" alt="XarxaPlay" width="420" height="233"></span>
-        <p style="margin-top:14px"><Fragment set:html={t["ft_about"]} /></p>
-      </div>
-      <div><h4><Fragment set:html={t["ft_play"]} /></h4><ul><li><a href="#padel"><Fragment set:html={t["ft_l1"]} /></a></li><li><a href="#pickleball"><Fragment set:html={t["ft_l2"]} /></a></li><li><a href="#tennis"><Fragment set:html={t["ft_l3"]} /></a></li><li><a href="#escola"><Fragment set:html={t["nav4"]} /></a></li><li><a href="#tornejos"><Fragment set:html={t["nav5"]} /></a></li></ul></div>
-      <div><h4><Fragment set:html={t["ft_contact"]} /></h4><ul><li>C/ Baldiri Aleu 1-7</li><li>08830 Sant Boi de Llobregat</li><li><a href="tel:+34611755275">+34 611 75 52 75</a></li><li><a href="tel:+34936302838">+34 936 30 28 38</a></li><li><a href="mailto:info@xarxaplay.es">info@xarxaplay.es</a></li></ul></div>
-      <div><h4><Fragment set:html={t["ft_follow"]} /></h4><ul><li><a href="https://www.instagram.com/xarxaplay/">Instagram</a></li><li><a href="https://www.youtube.com/@XarxaPlay">YouTube</a></li><li><a href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu">Playtomic</a></li></ul></div>
-    </div>
-    <div class="legal"><span>© 2026 XarxaPlay · Complex Esportiu Baldiri Aleu</span><span><Fragment set:html={t["ft_legal"]} /> · <button type="button" class="link-btn" data-cookie-settings><Fragment set:html={t["ck_settings"]} /></button></span></div>
-  </div>
-</footer>
-
-<div class="reader" id="reader" hidden>
-<article class="art" data-slug="beneficis-jugar-padel" hidden>
-<div class="art-hero"><svg class="ill wide" style="background:#4C7320" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true"><rect width="600" height="340" fill="#4C7320"/><path d="M300 270 C220 210 170 160 170 115 C170 80 198 55 230 55 C258 55 280 72 300 98 C320 72 342 55 370 55 C402 55 430 80 430 115 C430 160 380 210 300 270Z" fill="#E6E200"/><path d="M60 170 L200 170 L230 120 L265 220 L300 140 L325 170 L540 170" stroke="#fff" stroke-width="10" fill="none" stroke-linejoin="round"/></svg></div>
-<div class="art-wrap">
-<a class="back" href="#blog"><Fragment set:html={t["back"]} /></a>
-<p class="eyebrow"><Fragment set:html={t["b_beneficis-jugar-padel_g"]} /></p>
-<h1 class="art-title"><Fragment set:html={t["b_beneficis-jugar-padel_t"]} /></h1>
-<p class="art-meta">XarxaPlay · 5 min</p>
-<p class="es-note"><Fragment set:html={t["es_note"]} /></p>
-<div class="art-body">
-<p>El pàdel s'ha convertit en un dels esports més practicats de Catalunya, i no és casualitat. És fàcil començar, es juga en parella i, sobretot, fa molt bé al cos i al cap. Si estàs pensant a <strong>jugar a pàdel a Sant Boi</strong> o en algun altre punt del Baix Llobregat, aquests són els beneficis que notaràs.</p>
-<h3>1. Un cor més fort</h3>
-<p>Un partit combina esforços curts i intensos amb pauses breus. Aquest treball a intervals millora la capacitat cardiovascular i ajuda a controlar la pressió arterial i el pes, sense la sensació de monotonia d'altres activitats.</p>
-<h3>2. Cames, core i espatlles en acció</h3>
-<p>Desplaçaments laterals, flexions de cames i cops de pala fan treballar el tren inferior, la musculatura abdominal i lumbar i la cintura escapular. La pista de 20 × 10 metres és petita, i això fa que el treball sigui intens però amb menys impacte que en altres esports de raqueta.</p>
-<h3>3. Reflexos, coordinació i presa de decisions</h3>
-<p>Les parets de vidre obliguen a llegir el rebot i decidir en dècimes de segon. Aquesta exigència millora la coordinació ull-mà, l'agilitat i la concentració, a qualsevol edat.</p>
-<h3>4. Menys estrès i més vida social</h3>
-<p>El pàdel es juga sempre en parella i amb rivals, i això el fa molt social. Moltes amistats comencen en una <a href="#americana-padel-sant-boi">americana de pàdel</a> o a la terrassa després del partit.</p>
-<h3>Com començar amb bon peu</h3>
-<p>Escalfa 10 minuts, tria una pala adequada al teu nivell i, si no hi has jugat mai, comença amb un entrenador: aprendre bé els cops bàsics evita molèsties al colze i a l'espatlla. A la nostra <a href="#escola-padel-sant-boi">escola de pàdel de Sant Boi</a> la primera classe és gratuïta.</p>
-<p>Si ja jugues, a XarxaPlay tens <strong>11 pistes de pàdel al Baix Llobregat</strong> obertes cada dia, amb aparcament gratuït i gravació de partits gratis per veure com millores.</p>
-</div>
-<div class="art-cta"><p><Fragment set:html={t["art_cta"]} /></p><div class="cta-row" style="margin:0"><a class="btn btn-green" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a><a class="btn btn-ball" href="#escola"><Fragment set:html={t["cta_trial"]} /></a></div></div>
-<h2 class="rel-h"><Fragment set:html={t["rel_h"]} /></h2>
-<div class="rels"><a class="rel" href="#escola-padel-sant-boi"><svg class="ill small" style="background:#E6E200" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><rect width="600" height="340" fill="#E6E200"/><rect x="130" y="210" width="110" height="70" fill="#4C7320"/><rect x="245" y="150" width="110" height="130" fill="#2F4A16"/><rect x="360" y="85" width="110" height="195" fill="#121410"/><g font-family="Saira,Arial" font-weight="800" font-style="italic" font-size="40" fill="#fff" text-anchor="middle"><text x="185" y="260">1</text><text x="300" y="230">2</text><text x="415" y="200">3</text></g><circle cx="415" cy="50" r="22" fill="#fff" stroke="#121410" stroke-width="5"/></svg><span><Fragment set:html={t["b_escola-padel-sant-boi_t"]} /></span></a><a class="rel" href="#americana-padel-sant-boi"><svg class="ill small" style="background:#1F3110" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><rect width="600" height="340" fill="#1F3110"/><g fill="#E6E200"><circle cx="200" cy="110" r="34"/><circle cx="400" cy="110" r="34"/><circle cx="200" cy="240" r="34"/></g><circle cx="400" cy="240" r="34" fill="#fff"/><path d="M250 92 C290 70 320 70 352 92" stroke="#fff" stroke-width="8" fill="none"/><path d="M352 258 C320 282 290 282 250 258" stroke="#fff" stroke-width="8" fill="none"/><path d="M342 80 L356 95 L336 102 M258 270 L244 255 L264 248" stroke="#fff" stroke-width="8" fill="none"/></svg><span><Fragment set:html={t["b_americana-padel-sant-boi_t"]} /></span></a></div>
-</div></article>
-<article class="art" data-slug="que-es-pickleball" hidden>
-<div class="art-hero"><svg class="ill wide" style="background:#2D5C8C" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true"><rect width="600" height="340" fill="#2D5C8C"/><rect x="150" y="60" width="170" height="190" rx="70" fill="#E6E200" transform="rotate(-18 235 155)"/><rect x="250" y="225" width="34" height="95" rx="12" fill="#121410" transform="rotate(-18 235 155)"/><circle cx="420" cy="190" r="58" fill="#fff"/><g fill="#2D5C8C"><circle cx="400" cy="170" r="9"/><circle cx="440" cy="170" r="9"/><circle cx="420" cy="205" r="9"/><circle cx="388" cy="205" r="7"/><circle cx="452" cy="205" r="7"/></g></svg></div>
-<div class="art-wrap">
-<a class="back" href="#blog"><Fragment set:html={t["back"]} /></a>
-<p class="eyebrow"><Fragment set:html={t["b_que-es-pickleball_g"]} /></p>
-<h1 class="art-title"><Fragment set:html={t["b_que-es-pickleball_t"]} /></h1>
-<p class="art-meta">XarxaPlay · 4 min</p>
-<p class="es-note"><Fragment set:html={t["es_note"]} /></p>
-<div class="art-body">
-<p>El pickleball va néixer el 1965 als Estats Units com un joc familiar i avui és l'esport de raqueta que més creix al món. Combina elements del tennis, el pàdel i el tennis taula, i té una gran virtut: en mitja hora ja estàs jugant punts.</p>
-<h3>Com es juga</h3>
-<p>Es juga amb una pala llisa i una pilota de plàstic foradada, en una pista de 6,10 × 13,41 metres amb una xarxa baixa. Pot ser individual o per parelles. El servei es fa per sota i en diagonal, i a prop de la xarxa hi ha una zona, la <em>kitchen</em>, on no es pot colpejar la pilota de volea. Aquesta norma fa que els punts siguin llargs i tàctics.</p>
-<h3>Per què enganxa</h3>
-<ul><li>És fàcil d'aprendre i divertit des del primer dia.</li><li>La pista és petita i l'impacte articular és baix: hi juguen junts nens, adults i gent gran.</li><li>És molt social: els partits són ràpids i es canvia sovint de parella.</li></ul>
-<h3>On jugar a pickleball a Sant Boi</h3>
-<p>A XarxaPlay tenim <strong>4 pistes de pickleball a Sant Boi de Llobregat</strong>, al Complex Esportiu Baldiri Aleu. Pots reservar-les per Playtomic com una pista de pàdel. Si ja en coneixes els beneficis, t'agradarà saber que són molt semblants als del <a href="#beneficis-jugar-padel">pàdel per al teu organisme</a>.</p>
-<p>I quan et vegis amb nivell, apunta't a una americana o a un dels nostres <a href="#tornejos-baix-llobregat">tornejos de pickleball al Baix Llobregat</a>.</p>
-</div>
-<div class="art-cta"><p><Fragment set:html={t["art_cta"]} /></p><div class="cta-row" style="margin:0"><a class="btn btn-green" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a><a class="btn btn-ball" href="#escola"><Fragment set:html={t["cta_trial"]} /></a></div></div>
-<h2 class="rel-h"><Fragment set:html={t["rel_h"]} /></h2>
-<div class="rels"><a class="rel" href="#tornejos-baix-llobregat"><svg class="ill small" style="background:#121410" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><rect width="600" height="340" fill="#121410"/><path d="M230 70 L370 70 L370 130 C370 180 340 210 300 215 C260 210 230 180 230 130Z" fill="#E6E200"/><path d="M230 90 L185 90 C185 140 205 160 235 165 M370 90 L415 90 C415 140 395 160 365 165" stroke="#E6E200" stroke-width="10" fill="none"/><rect x="285" y="212" width="30" height="45" fill="#E6E200"/><rect x="245" y="255" width="110" height="26" rx="4" fill="#4C7320"/><g fill="#fff" opacity=".7"><circle cx="110" cy="80" r="6"/><circle cx="500" cy="230" r="6"/><circle cx="480" cy="70" r="4"/><circle cx="130" cy="250" r="4"/></g></svg><span><Fragment set:html={t["b_tornejos-baix-llobregat_t"]} /></span></a><a class="rel" href="#beneficis-jugar-padel"><svg class="ill small" style="background:#4C7320" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><rect width="600" height="340" fill="#4C7320"/><path d="M300 270 C220 210 170 160 170 115 C170 80 198 55 230 55 C258 55 280 72 300 98 C320 72 342 55 370 55 C402 55 430 80 430 115 C430 160 380 210 300 270Z" fill="#E6E200"/><path d="M60 170 L200 170 L230 120 L265 220 L300 140 L325 170 L540 170" stroke="#fff" stroke-width="10" fill="none" stroke-linejoin="round"/></svg><span><Fragment set:html={t["b_beneficis-jugar-padel_t"]} /></span></a></div>
-</div></article>
-<article class="art" data-slug="americana-padel-sant-boi" hidden>
-<div class="art-hero"><svg class="ill wide" style="background:#1F3110" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true"><rect width="600" height="340" fill="#1F3110"/><g fill="#E6E200"><circle cx="200" cy="110" r="34"/><circle cx="400" cy="110" r="34"/><circle cx="200" cy="240" r="34"/></g><circle cx="400" cy="240" r="34" fill="#fff"/><path d="M250 92 C290 70 320 70 352 92" stroke="#fff" stroke-width="8" fill="none"/><path d="M352 258 C320 282 290 282 250 258" stroke="#fff" stroke-width="8" fill="none"/><path d="M342 80 L356 95 L336 102 M258 270 L244 255 L264 248" stroke="#fff" stroke-width="8" fill="none"/></svg></div>
-<div class="art-wrap">
-<a class="back" href="#blog"><Fragment set:html={t["back"]} /></a>
-<p class="eyebrow"><Fragment set:html={t["b_americana-padel-sant-boi_g"]} /></p>
-<h1 class="art-title"><Fragment set:html={t["b_americana-padel-sant-boi_t"]} /></h1>
-<p class="art-meta">XarxaPlay · 4 min</p>
-<p class="es-note"><Fragment set:html={t["es_note"]} /></p>
-<div class="art-body">
-<p>Si vols jugar més, conèixer gent del teu nivell i no dependre de quadrar agendes, l'americana és el teu format. És la manera més fàcil de començar a competir sense pressió.</p>
-<h3>Com funciona una americana</h3>
-<p>Els jugadors s'inscriuen individualment o en parella i juguen diverses rondes curtes, normalment per temps o per punts. En el format clàssic, la parella canvia a cada ronda i cada jugador suma els seus punts. Al final, qui n'acumula més guanya. Així jugues amb i contra molta gent diferent en una sola tarda.</p>
-<h3>Americanes de pàdel, pickleball i tennis</h3>
-<p>El format va néixer amb el pàdel, però funciona igual de bé en altres esports. A XarxaPlay organitzem <strong>americanes de pàdel a Sant Boi</strong> cada setmana i també americanes de pickleball i de tennis. Si no coneixes el pickleball, llegeix <a href="#que-es-pickleball">què és i com es juga</a>.</p>
-<h3>Consells per a la teva primera americana</h3>
-<ul><li>Apunta't al nivell real que tens: t'ho passaràs millor.</li><li>Arriba 15 minuts abans per escalfar.</li><li>Porta aigua i una samarreta de recanvi.</li><li>Gaudeix: l'objectiu és jugar molt i conèixer gent.</li></ul>
-<p>Quan hi agafis el gust, el pas següent són els <a href="#tornejos-baix-llobregat">tornejos de pàdel al Baix Llobregat</a>. I si vols arribar-hi amb més recursos, prova la nostra <a href="#escola-padel-sant-boi">escola de pàdel</a>: la primera classe és gratis.</p>
-</div>
-<div class="art-cta"><p><Fragment set:html={t["art_cta"]} /></p><div class="cta-row" style="margin:0"><a class="btn btn-green" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a><a class="btn btn-ball" href="#escola"><Fragment set:html={t["cta_trial"]} /></a></div></div>
-<h2 class="rel-h"><Fragment set:html={t["rel_h"]} /></h2>
-<div class="rels"><a class="rel" href="#tornejos-baix-llobregat"><svg class="ill small" style="background:#121410" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><rect width="600" height="340" fill="#121410"/><path d="M230 70 L370 70 L370 130 C370 180 340 210 300 215 C260 210 230 180 230 130Z" fill="#E6E200"/><path d="M230 90 L185 90 C185 140 205 160 235 165 M370 90 L415 90 C415 140 395 160 365 165" stroke="#E6E200" stroke-width="10" fill="none"/><rect x="285" y="212" width="30" height="45" fill="#E6E200"/><rect x="245" y="255" width="110" height="26" rx="4" fill="#4C7320"/><g fill="#fff" opacity=".7"><circle cx="110" cy="80" r="6"/><circle cx="500" cy="230" r="6"/><circle cx="480" cy="70" r="4"/><circle cx="130" cy="250" r="4"/></g></svg><span><Fragment set:html={t["b_tornejos-baix-llobregat_t"]} /></span></a><a class="rel" href="#escola-padel-sant-boi"><svg class="ill small" style="background:#E6E200" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><rect width="600" height="340" fill="#E6E200"/><rect x="130" y="210" width="110" height="70" fill="#4C7320"/><rect x="245" y="150" width="110" height="130" fill="#2F4A16"/><rect x="360" y="85" width="110" height="195" fill="#121410"/><g font-family="Saira,Arial" font-weight="800" font-style="italic" font-size="40" fill="#fff" text-anchor="middle"><text x="185" y="260">1</text><text x="300" y="230">2</text><text x="415" y="200">3</text></g><circle cx="415" cy="50" r="22" fill="#fff" stroke="#121410" stroke-width="5"/></svg><span><Fragment set:html={t["b_escola-padel-sant-boi_t"]} /></span></a></div>
-</div></article>
-<article class="art" data-slug="escola-padel-sant-boi" hidden>
-<div class="art-hero"><svg class="ill wide" style="background:#E6E200" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true"><rect width="600" height="340" fill="#E6E200"/><rect x="130" y="210" width="110" height="70" fill="#4C7320"/><rect x="245" y="150" width="110" height="130" fill="#2F4A16"/><rect x="360" y="85" width="110" height="195" fill="#121410"/><g font-family="Saira,Arial" font-weight="800" font-style="italic" font-size="40" fill="#fff" text-anchor="middle"><text x="185" y="260">1</text><text x="300" y="230">2</text><text x="415" y="200">3</text></g><circle cx="415" cy="50" r="22" fill="#fff" stroke="#121410" stroke-width="5"/></svg></div>
-<div class="art-wrap">
-<a class="back" href="#blog"><Fragment set:html={t["back"]} /></a>
-<p class="eyebrow"><Fragment set:html={t["b_escola-padel-sant-boi_g"]} /></p>
-<h1 class="art-title"><Fragment set:html={t["b_escola-padel-sant-boi_t"]} /></h1>
-<p class="art-meta">XarxaPlay · 4 min</p>
-<p class="es-note"><Fragment set:html={t["es_note"]} /></p>
-<div class="art-body">
-<p>Aprendre amb un entrenador és la manera més ràpida de gaudir del pàdel i d'evitar vicis i lesions. A l'<strong>escola de pàdel de XarxaPlay, a Sant Boi de Llobregat</strong>, hi ha classes per a nens i adults, des de zero fins a competició.</p>
-<h3>Quin és el meu nivell?</h3>
-<ul><li><strong>Iniciació:</strong> no hi has jugat mai o només de manera esporàdica. Aprendràs l'empunyadura, els cops bàsics i com moure't per la pista.</li><li><strong>Intermedi:</strong> mantens peloteigs i jugues partits, però vols controlar les parets, la volea i el globus.</li><li><strong>Avançat:</strong> competeixes o jugues <a href="#americana-padel-sant-boi">americanes</a> i vols treballar la tàctica, el remat i el joc en parella.</li></ul>
-<h3>Pàdel per a nens</h3>
-<p>El pàdel és un esport ideal per als més petits: la pista és tancada, la pilota va més lenta que en el tennis i aviat juguen punts. Millora la coordinació, l'esperit d'equip i els hàbits saludables.</p>
-<h3>Com aprofitar la classe de prova gratuïta</h3>
-<p>Omple el formulari, et truquem i triem un horari amb un grup del teu nivell. Porta roba esportiva i calçat amb sola d'espiga o de pàdel. Al final, l'entrenador et dirà quin grup t'encaixa millor.</p>
-<p>Vols saber per què val la pena? Llegeix <a href="#beneficis-jugar-padel">els beneficis de jugar a pàdel per al teu organisme</a>. I si a casa algú prefereix la raqueta clàssica, tenim <a href="#tennis-sant-boi">pista de tennis a Sant Boi</a>.</p>
-</div>
-<div class="art-cta"><p><Fragment set:html={t["art_cta"]} /></p><div class="cta-row" style="margin:0"><a class="btn btn-green" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a><a class="btn btn-ball" href="#escola"><Fragment set:html={t["cta_trial"]} /></a></div></div>
-<h2 class="rel-h"><Fragment set:html={t["rel_h"]} /></h2>
-<div class="rels"><a class="rel" href="#beneficis-jugar-padel"><svg class="ill small" style="background:#4C7320" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><rect width="600" height="340" fill="#4C7320"/><path d="M300 270 C220 210 170 160 170 115 C170 80 198 55 230 55 C258 55 280 72 300 98 C320 72 342 55 370 55 C402 55 430 80 430 115 C430 160 380 210 300 270Z" fill="#E6E200"/><path d="M60 170 L200 170 L230 120 L265 220 L300 140 L325 170 L540 170" stroke="#fff" stroke-width="10" fill="none" stroke-linejoin="round"/></svg><span><Fragment set:html={t["b_beneficis-jugar-padel_t"]} /></span></a><a class="rel" href="#americana-padel-sant-boi"><svg class="ill small" style="background:#1F3110" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><rect width="600" height="340" fill="#1F3110"/><g fill="#E6E200"><circle cx="200" cy="110" r="34"/><circle cx="400" cy="110" r="34"/><circle cx="200" cy="240" r="34"/></g><circle cx="400" cy="240" r="34" fill="#fff"/><path d="M250 92 C290 70 320 70 352 92" stroke="#fff" stroke-width="8" fill="none"/><path d="M352 258 C320 282 290 282 250 258" stroke="#fff" stroke-width="8" fill="none"/><path d="M342 80 L356 95 L336 102 M258 270 L244 255 L264 248" stroke="#fff" stroke-width="8" fill="none"/></svg><span><Fragment set:html={t["b_americana-padel-sant-boi_t"]} /></span></a></div>
-</div></article>
-<article class="art" data-slug="tennis-sant-boi" hidden>
-<div class="art-hero"><svg class="ill wide" style="background:#B4552E" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true"><rect width="600" height="340" fill="#B4552E"/><circle cx="240" cy="170" r="95" fill="#E6E200"/><path d="M165 110 C215 140 215 200 165 230 M315 110 C265 140 265 200 315 230" stroke="#fff" stroke-width="9" fill="none"/><ellipse cx="420" cy="140" rx="62" ry="80" fill="none" stroke="#fff" stroke-width="12" transform="rotate(25 420 140)"/><rect x="452" y="205" width="22" height="95" rx="8" fill="#121410" transform="rotate(25 420 140)"/></svg></div>
-<div class="art-wrap">
-<a class="back" href="#blog"><Fragment set:html={t["back"]} /></a>
-<p class="eyebrow"><Fragment set:html={t["b_tennis-sant-boi_g"]} /></p>
-<h1 class="art-title"><Fragment set:html={t["b_tennis-sant-boi_t"]} /></h1>
-<p class="art-meta">XarxaPlay · 4 min</p>
-<p class="es-note"><Fragment set:html={t["es_note"]} /></p>
-<div class="art-body">
-<p>Molta gent va jugar a tennis de jove i ho va deixar per falta de temps o de pista a prop. Si és el teu cas, és un bon moment per tornar-hi: el tennis és un dels esports més complets que hi ha.</p>
-<h3>Què et dona el tennis</h3>
-<ul><li><strong>Resistència física:</strong> els punts combinen esprints, frenades i canvis de direcció.</li><li><strong>Coordinació i agilitat:</strong> cada cop exigeix llegir la pilota i col·locar el cos a temps.</li><li><strong>Fortalesa mental:</strong> jugar sol obliga a gestionar la pressió i a mantenir la concentració.</li><li><strong>Menys estrès:</strong> una hora de partit desconnecta de tot.</li></ul>
-<h3>Consells per tornar-hi sense lesions</h3>
-<p>Comença amb peloteigs de 45 minuts, escalfa bé espatlla i canells i revisa la tensió del cordatge: si fa anys que no el canvies, segurament està massa dur.</p>
-<h3>Pista de tennis a Sant Boi de Llobregat</h3>
-<p>A XarxaPlay tens una <strong>pista de tennis renovada a Sant Boi</strong>, dins el Complex Esportiu Baldiri Aleu, amb vestidors, aparcament i bar. Es reserva per Playtomic. També organitzem <a href="#tornejos-baix-llobregat">tornejos i americanes de tennis al Baix Llobregat</a>.</p>
-<p>Si vols provar alguna cosa nova amb la mateixa essència, el <a href="#que-es-pickleball">pickleball</a> és l'esport de raqueta que més creix i agrada molt als tennistes.</p>
-</div>
-<div class="art-cta"><p><Fragment set:html={t["art_cta"]} /></p><div class="cta-row" style="margin:0"><a class="btn btn-green" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a><a class="btn btn-ball" href="#escola"><Fragment set:html={t["cta_trial"]} /></a></div></div>
-<h2 class="rel-h"><Fragment set:html={t["rel_h"]} /></h2>
-<div class="rels"><a class="rel" href="#tornejos-baix-llobregat"><svg class="ill small" style="background:#121410" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><rect width="600" height="340" fill="#121410"/><path d="M230 70 L370 70 L370 130 C370 180 340 210 300 215 C260 210 230 180 230 130Z" fill="#E6E200"/><path d="M230 90 L185 90 C185 140 205 160 235 165 M370 90 L415 90 C415 140 395 160 365 165" stroke="#E6E200" stroke-width="10" fill="none"/><rect x="285" y="212" width="30" height="45" fill="#E6E200"/><rect x="245" y="255" width="110" height="26" rx="4" fill="#4C7320"/><g fill="#fff" opacity=".7"><circle cx="110" cy="80" r="6"/><circle cx="500" cy="230" r="6"/><circle cx="480" cy="70" r="4"/><circle cx="130" cy="250" r="4"/></g></svg><span><Fragment set:html={t["b_tornejos-baix-llobregat_t"]} /></span></a><a class="rel" href="#que-es-pickleball"><svg class="ill small" style="background:#2D5C8C" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><rect width="600" height="340" fill="#2D5C8C"/><rect x="150" y="60" width="170" height="190" rx="70" fill="#E6E200" transform="rotate(-18 235 155)"/><rect x="250" y="225" width="34" height="95" rx="12" fill="#121410" transform="rotate(-18 235 155)"/><circle cx="420" cy="190" r="58" fill="#fff"/><g fill="#2D5C8C"><circle cx="400" cy="170" r="9"/><circle cx="440" cy="170" r="9"/><circle cx="420" cy="205" r="9"/><circle cx="388" cy="205" r="7"/><circle cx="452" cy="205" r="7"/></g></svg><span><Fragment set:html={t["b_que-es-pickleball_t"]} /></span></a></div>
-</div></article>
-<article class="art" data-slug="tornejos-baix-llobregat" hidden>
-<div class="art-hero"><svg class="ill wide" style="background:#121410" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true"><rect width="600" height="340" fill="#121410"/><path d="M230 70 L370 70 L370 130 C370 180 340 210 300 215 C260 210 230 180 230 130Z" fill="#E6E200"/><path d="M230 90 L185 90 C185 140 205 160 235 165 M370 90 L415 90 C415 140 395 160 365 165" stroke="#E6E200" stroke-width="10" fill="none"/><rect x="285" y="212" width="30" height="45" fill="#E6E200"/><rect x="245" y="255" width="110" height="26" rx="4" fill="#4C7320"/><g fill="#fff" opacity=".7"><circle cx="110" cy="80" r="6"/><circle cx="500" cy="230" r="6"/><circle cx="480" cy="70" r="4"/><circle cx="130" cy="250" r="4"/></g></svg></div>
-<div class="art-wrap">
-<a class="back" href="#blog"><Fragment set:html={t["back"]} /></a>
-<p class="eyebrow"><Fragment set:html={t["b_tornejos-baix-llobregat_g"]} /></p>
-<h1 class="art-title"><Fragment set:html={t["b_tornejos-baix-llobregat_t"]} /></h1>
-<p class="art-meta">XarxaPlay · 5 min</p>
-<p class="es-note"><Fragment set:html={t["es_note"]} /></p>
-<div class="art-body">
-<p>Competir és la millor manera de posar a prova tot el que entrenes. Al Baix Llobregat hi ha cada cop més afició, i a XarxaPlay organitzem durant l'any <strong>tornejos de pàdel, tennis i pickleball a Sant Boi</strong> per a tots els nivells.</p>
-<h3>Formats més habituals</h3>
-<ul><li><strong>Torneig exprés:</strong> es juga en un sol dia, amb partits curts. Ideal per començar.</li><li><strong>Campionat per categories:</strong> diverses jornades, fase de grups i quadre final.</li><li><strong>Americana:</strong> el format més social, amb parelles rotatives. T'expliquem <a href="#americana-padel-sant-boi">com funciona una americana</a>.</li></ul>
-<h3>Categories i nivells</h3>
-<p>Els tornejos de pàdel s'organitzen per categories de nivell perquè tothom jugui partits igualats. Si dubtes on encaixes, consulta-ho amb l'equip o amb l'entrenador de l'<a href="#escola-padel-sant-boi">escola de pàdel</a>.</p>
-<h3>Com preparar-te</h3>
-<ul><li>Juga partits amb la teva parella abans del torneig.</li><li>Revisa la pala o la raqueta i porta pilotes de recanvi.</li><li>Dorm bé, hidrata't i menja lleuger abans de jugar.</li><li>Arriba amb temps per escalfar a la pista.</li></ul>
-<h3>Torneig de pickleball i de tennis</h3>
-<p>El pickleball té cada vegada més competicions; si encara no el coneixes, comença per <a href="#que-es-pickleball">què és el pickleball</a>. I per als tennistes, els tornejos a la nostra <a href="#tennis-sant-boi">pista de tennis de Sant Boi</a> són una bona excusa per tornar a competir.</p>
-<p>Consulta les properes dates a Instagram i fes la inscripció per Playtomic.</p>
-</div>
-<div class="art-cta"><p><Fragment set:html={t["art_cta"]} /></p><div class="cta-row" style="margin:0"><a class="btn btn-green" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a><a class="btn btn-ball" href="#escola"><Fragment set:html={t["cta_trial"]} /></a></div></div>
-<h2 class="rel-h"><Fragment set:html={t["rel_h"]} /></h2>
-<div class="rels"><a class="rel" href="#americana-padel-sant-boi"><svg class="ill small" style="background:#1F3110" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><rect width="600" height="340" fill="#1F3110"/><g fill="#E6E200"><circle cx="200" cy="110" r="34"/><circle cx="400" cy="110" r="34"/><circle cx="200" cy="240" r="34"/></g><circle cx="400" cy="240" r="34" fill="#fff"/><path d="M250 92 C290 70 320 70 352 92" stroke="#fff" stroke-width="8" fill="none"/><path d="M352 258 C320 282 290 282 250 258" stroke="#fff" stroke-width="8" fill="none"/><path d="M342 80 L356 95 L336 102 M258 270 L244 255 L264 248" stroke="#fff" stroke-width="8" fill="none"/></svg><span><Fragment set:html={t["b_americana-padel-sant-boi_t"]} /></span></a><a class="rel" href="#tennis-sant-boi"><svg class="ill small" style="background:#B4552E" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true"><rect width="600" height="340" fill="#B4552E"/><circle cx="240" cy="170" r="95" fill="#E6E200"/><path d="M165 110 C215 140 215 200 165 230 M315 110 C265 140 265 200 315 230" stroke="#fff" stroke-width="9" fill="none"/><ellipse cx="420" cy="140" rx="62" ry="80" fill="none" stroke="#fff" stroke-width="12" transform="rotate(25 420 140)"/><rect x="452" y="205" width="22" height="95" rx="8" fill="#121410" transform="rotate(25 420 140)"/></svg><span><Fragment set:html={t["b_tennis-sant-boi_t"]} /></span></a></div>
-</div></article>
-</div>
-<div class="cookie" id="cookie" role="dialog" aria-live="polite" aria-label={t["ck_title"]} hidden>
-  <p><b><Fragment set:html={t["ck_title"]} /></b> <Fragment set:html={t["ck_text"]} /></p>
-  <div class="cookie-btns">
-    <button type="button" class="btn btn-ghost" data-consent="deny"><Fragment set:html={t["ck_reject"]} /></button>
-    <button type="button" class="btn btn-ghost" data-consent="grant"><Fragment set:html={t["ck_accept"]} /></button>
-  </div>
-</div>
-<div class="mbar">
-  <a class="btn btn-ball" href="https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu"><Fragment set:html={t["cta_book"]} /></a>
-  <a class="btn btn-ghost" style="color:#fff" href="#escola"><Fragment set:html={t["m_trial"]} /></a>
-</div>

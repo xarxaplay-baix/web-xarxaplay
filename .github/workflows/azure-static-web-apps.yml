@@ -43,6 +43,11 @@ jobs:
           output_location: ""
           skip_app_build: true
 
+      - name: Avisar Bing i IndexNow dels canvis
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
+        run: node scripts/indexnow.mjs
+
   close_preview:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest

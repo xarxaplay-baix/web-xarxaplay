@@ -1,0 +1,52 @@
+---
+import { texts } from "../i18n/t";
+import { routes, homeAnchor, type Lang } from "../data/routes";
+import { site } from "../site.config";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = texts(lang);
+const r = (k: keyof typeof routes) => routes[k][lang];
+const year = new Date().getFullYear();
+---
+<footer>
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <span class="flogo"><img src="/img/logo-xarxaplay-200.webp" srcset="/img/logo-xarxaplay-200.webp 200w, /img/logo-xarxaplay-400.webp 400w" sizes="90px" alt="XarxaPlay" width="420" height="233" loading="lazy"></span>
+        <p style="margin-top:14px"><Fragment set:html={t["ft_about"]} /></p>
+      </div>
+      <div><h2 class="fh"><Fragment set:html={t["ft_play"]} /></h2><ul>
+        <li><a href={r("padel")}><Fragment set:html={t["ft_l1"]} /></a></li>
+        <li><a href={r("pickleball")}><Fragment set:html={t["ft_l2"]} /></a></li>
+        <li><a href={r("tennis")}><Fragment set:html={t["ft_l3"]} /></a></li>
+        <li><a href={r("escola")}><Fragment set:html={t["nav4"]} /></a></li>
+        <li><a href={homeAnchor(lang, "tornejos")}><Fragment set:html={t["nav5"]} /></a></li>
+        <li><a href={r("blog")}><Fragment set:html={t["nav8"]} /></a></li>
+      </ul></div>
+      <div><h2 class="fh"><Fragment set:html={t["ft_contact"]} /></h2><ul>
+        <li>C/ Baldiri Aleu 1-7</li><li>08830 Sant Boi de Llobregat</li>
+        <li><a href={`tel:${site.phone}`}>+34 611 75 52 75</a></li>
+        <li><a href={`tel:${site.phoneFix}`}>+34 936 30 28 38</a></li>
+        <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+      </ul></div>
+      <div><h2 class="fh"><Fragment set:html={t["ft_follow"]} /></h2><ul>
+        <li><a href={site.instagram} rel="noopener">Instagram</a></li>
+        <li><a href={site.youtube} rel="noopener">YouTube</a></li>
+        <li><a href={site.playtomic} rel="noopener">Playtomic</a></li>
+      </ul></div>
+    </div>
+    <div class="legal"><span>© {year} XarxaPlay · Complex Esportiu Baldiri Aleu</span><span><Fragment set:html={t["ft_legal"]} /> · <button type="button" class="link-btn" data-cookie-settings><Fragment set:html={t["ck_settings"]} /></button></span></div>
+  </div>
+</footer>
+
+<div class="cookie" id="cookie" role="dialog" aria-live="polite" aria-label={t["ck_title"]} hidden>
+  <p><b><Fragment set:html={t["ck_title"]} /></b> <Fragment set:html={t["ck_text"]} /></p>
+  <div class="cookie-btns">
+    <button type="button" class="btn btn-ghost" data-consent="deny"><Fragment set:html={t["ck_reject"]} /></button>
+    <button type="button" class="btn btn-ghost" data-consent="grant"><Fragment set:html={t["ck_accept"]} /></button>
+  </div>
+</div>
+<div class="mbar">
+  <a class="btn btn-ball" href={site.playtomic}><Fragment set:html={t["cta_book"]} /></a>
+  <a class="btn btn-ghost" style="color:#fff" href={`${r("escola")}#prova`}><Fragment set:html={t["m_trial"]} /></a>
+</div>

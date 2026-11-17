@@ -1,0 +1,28 @@
+---
+// Formulari de la classe de prova gratuïta (portada i pàgina de l'escola).
+import { texts } from "../i18n/t";
+import type { Lang } from "../data/routes";
+interface Props { lang: Lang; level?: "h2" | "h3" }
+const { lang, level = "h3" } = Astro.props;
+const H = level;
+const t = texts(lang);
+---
+<form class="trial" id="trial" novalidate>
+        <H class="trial-h"><Fragment set:html={t["f_h3"]} /></H>
+        <div class="field"><label for="f-name"><Fragment set:html={t["f_name"]} /></label><input id="f-name" name="name" autocomplete="name" required></div>
+        <div class="two">
+          <div class="field"><label for="f-phone"><Fragment set:html={t["f_phone"]} /></label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required></div>
+          <div class="field"><label for="f-who"><Fragment set:html={t["f_who"]} /></label>
+            <select id="f-who" name="who"><option><Fragment set:html={t["o_adult"]} /></option><option><Fragment set:html={t["o_kid"]} /></option></select></div>
+        </div>
+        <div class="two">
+          <div class="field"><label for="f-level"><Fragment set:html={t["f_level"]} /></label>
+            <select id="f-level" name="level"><option><Fragment set:html={t["l0"]} /></option><option><Fragment set:html={t["l1"]} /></option><option><Fragment set:html={t["l2"]} /></option><option><Fragment set:html={t["l3"]} /></option></select></div>
+          <div class="field"><label for="f-time"><Fragment set:html={t["f_time"]} /></label>
+            <select id="f-time" name="time"><option><Fragment set:html={t["t1"]} /></option><option><Fragment set:html={t["t2"]} /></option><option selected><Fragment set:html={t["t3"]} /></option><option><Fragment set:html={t["t4"]} /></option></select></div>
+        </div>
+        <label class="check" for="f-ok"><input id="f-ok" type="checkbox" required> <span><Fragment set:html={t["f_ok"]} /></span></label>
+        <button class="btn btn-ball" type="submit"><Fragment set:html={t["f_send"]} /></button>
+        <p class="ok" role="status"><Fragment set:html={t["f_okmsg"]} /></p>
+        <p class="note"><Fragment set:html={t["f_note"]} /></p>
+      </form>

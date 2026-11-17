@@ -1,0 +1,12 @@
+---
+import { ill } from "../data/illustrations";
+import type { Post } from "../data/routes";
+interface Props { post: Post; t: Record<string, string>; level?: "h2" | "h3" }
+const { post, t, level = "h3" } = Astro.props;
+const i = ill[post.key];
+const H = level;
+---
+<article class="post"><a class="post-link" href={post.url}>
+<div class="post-img"><svg class="ill" style={`background:${i.bg}`} viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" set:html={i.inner} /><span class="tagpill">{post.tag}</span></div>
+<div class="post-body"><H>{post.title}</H><p>{post.description}</p>
+<span class="post-more"><span set:html={t["read_more"]} /> · {post.minutes} min</span></div></a></article>

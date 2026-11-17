@@ -1,0 +1,16 @@
+---
+import PostCard from "./PostCard.astro";
+import { postByKey, routes, type Lang } from "../data/routes";
+import { texts } from "../i18n/t";
+interface Props { lang: Lang; keys: string[]; title?: string }
+const { lang, keys, title } = Astro.props;
+const t = texts(lang);
+const list = keys.map((k) => postByKey(lang, k)).filter(Boolean);
+---
+<section class="block" style="padding-top:0">
+  <div class="wrap">
+    <div class="head"><p class="eyebrow" set:html={t["bl_eyebrow"]} /><h2 set:html={title ?? t["rel_h"]} /></div>
+    <div class="posts">{list.map((p) => <PostCard post={p} t={t} />)}</div>
+    <div class="cta-row"><a class="btn btn-ghost" href={routes.blog[lang]} set:html={t["bl_all"]} /></div>
+  </div>
+</section>

@@ -144,7 +144,6 @@
  "ft_follow": "Segueix-nos",
  "ft_legal": "Avís legal · Privacitat · Cookies",
  "back": "← Tornar al blog",
- "es_note": "",
  "art_cta": "Vine a jugar a XarxaPlay, Sant Boi de Llobregat.",
  "rel_h": "També et pot interessar",
  "m_trial": "Classe gratis",
@@ -200,5 +199,9 @@
  "ck_accept": "Accepto",
  "ck_reject": "Rebutjo",
  "ck_settings": "Configuració de galetes",
- "tel_fix": "(fix)"
+ "tel_fix": "(fix)",
+ "bl_all": "Veure tots els articles",
+ "more_padel": "Pistes de pàdel",
+ "more_pick": "Pistes de pickleball",
+ "more_ten": "Pista de tennis"
 }

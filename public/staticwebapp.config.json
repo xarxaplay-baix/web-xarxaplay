@@ -2,19 +2,293 @@
   "trailingSlash": "auto",
   "navigationFallback": {
     "rewrite": "/404.html",
-    "exclude": ["/img/*", "/*.{css,js,png,jpg,jpeg,webp,svg,ico,txt,xml,json}"]
+    "exclude": [
+      "/img/*",
+      "/*.{css,js,png,jpg,jpeg,webp,svg,ico,txt,xml,json,webmanifest}"
+    ]
   },
   "responseOverrides": {
-    "404": { "rewrite": "/404.html", "statusCode": 404 }
+    "404": {
+      "rewrite": "/404.html",
+      "statusCode": 404
+    }
   },
   "routes": [
-    { "route": "/img/*", "headers": { "Cache-Control": "public, max-age=2592000" } },
-    { "route": "/_astro/*", "headers": { "Cache-Control": "public, max-age=31536000, immutable" } }
+    {
+      "route": "/faqs",
+      "redirect": "/#faq",
+      "statusCode": 301
+    },
+    {
+      "route": "/faqs/",
+      "redirect": "/#faq",
+      "statusCode": 301
+    },
+    {
+      "route": "/our-programs",
+      "redirect": "/escola-padel/",
+      "statusCode": 301
+    },
+    {
+      "route": "/our-programs/",
+      "redirect": "/escola-padel/",
+      "statusCode": 301
+    },
+    {
+      "route": "/instal%c2%b7lacions",
+      "redirect": "/#serveis",
+      "statusCode": 301
+    },
+    {
+      "route": "/instal%c2%b7lacions/",
+      "redirect": "/#serveis",
+      "statusCode": 301
+    },
+    {
+      "route": "/instal·lacions",
+      "redirect": "/#serveis",
+      "statusCode": 301
+    },
+    {
+      "route": "/instal·lacions/",
+      "redirect": "/#serveis",
+      "statusCode": 301
+    },
+    {
+      "route": "/instal%C2%B7lacions",
+      "redirect": "/#serveis",
+      "statusCode": 301
+    },
+    {
+      "route": "/instal%C2%B7lacions/",
+      "redirect": "/#serveis",
+      "statusCode": 301
+    },
+    {
+      "route": "/gravacio-partits",
+      "redirect": "/padel/",
+      "statusCode": 301
+    },
+    {
+      "route": "/gravacio-partits/",
+      "redirect": "/padel/",
+      "statusCode": 301
+    },
+    {
+      "route": "/vestidors-i-armariets",
+      "redirect": "/#serveis",
+      "statusCode": 301
+    },
+    {
+      "route": "/vestidors-i-armariets/",
+      "redirect": "/#serveis",
+      "statusCode": 301
+    },
+    {
+      "route": "/assessorament-esportiu",
+      "redirect": "/#serveis",
+      "statusCode": 301
+    },
+    {
+      "route": "/assessorament-esportiu/",
+      "redirect": "/#serveis",
+      "statusCode": 301
+    },
+    {
+      "route": "/aparcament",
+      "redirect": "/#serveis",
+      "statusCode": 301
+    },
+    {
+      "route": "/aparcament/",
+      "redirect": "/#serveis",
+      "statusCode": 301
+    },
+    {
+      "route": "/bar-restaurant",
+      "redirect": "/#serveis",
+      "statusCode": 301
+    },
+    {
+      "route": "/bar-restaurant/",
+      "redirect": "/#serveis",
+      "statusCode": 301
+    },
+    {
+      "route": "/botiga",
+      "redirect": "/#serveis",
+      "statusCode": 301
+    },
+    {
+      "route": "/botiga/",
+      "redirect": "/#serveis",
+      "statusCode": 301
+    },
+    {
+      "route": "/pistes-de-padel",
+      "redirect": "/padel/",
+      "statusCode": 301
+    },
+    {
+      "route": "/pistes-de-padel/",
+      "redirect": "/padel/",
+      "statusCode": 301
+    },
+    {
+      "route": "/pistes-de-padel-2",
+      "redirect": "/pickleball/",
+      "statusCode": 301
+    },
+    {
+      "route": "/pistes-de-padel-2/",
+      "redirect": "/pickleball/",
+      "statusCode": 301
+    },
+    {
+      "route": "/pista-de-tenis",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/pista-de-tenis/",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/esdeveniments",
+      "redirect": "/#tornejos",
+      "statusCode": 301
+    },
+    {
+      "route": "/esdeveniments/",
+      "redirect": "/#tornejos",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog-standard",
+      "redirect": "/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog-standard/",
+      "redirect": "/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/contact",
+      "redirect": "/#contacte",
+      "statusCode": 301
+    },
+    {
+      "route": "/contact/",
+      "redirect": "/#contacte",
+      "statusCode": 301
+    },
+    {
+      "route": "/online-booking",
+      "redirect": "https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu",
+      "statusCode": 301
+    },
+    {
+      "route": "/online-booking/",
+      "redirect": "https://playtomic.com/clubs/new-complex-esportiu-baldiri-aleu",
+      "statusCode": 301
+    },
+    {
+      "route": "/shop",
+      "redirect": "/#serveis",
+      "statusCode": 301
+    },
+    {
+      "route": "/shop/",
+      "redirect": "/#serveis",
+      "statusCode": 301
+    },
+    {
+      "route": "/feed",
+      "redirect": "/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/feed/",
+      "redirect": "/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/escuela-padel",
+      "redirect": "/es/escuela-padel/",
+      "statusCode": 301
+    },
+    {
+      "route": "/escuela-padel/",
+      "redirect": "/es/escuela-padel/",
+      "statusCode": 301
+    },
+    {
+      "route": "/tenis",
+      "redirect": "/es/tenis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/tenis/",
+      "redirect": "/es/tenis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/event/*",
+      "redirect": "/#tornejos",
+      "statusCode": 301
+    },
+    {
+      "route": "/category/*",
+      "redirect": "/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/tag/*",
+      "redirect": "/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/author/*",
+      "redirect": "/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/img/*",
+      "headers": {
+        "Cache-Control": "public, max-age=2592000"
+      }
+    },
+    {
+      "route": "/_astro/*",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "route": "/*.jpg",
+      "headers": {
+        "Cache-Control": "public, max-age=2592000"
+      }
+    },
+    {
+      "route": "/site.js",
+      "headers": {
+        "Cache-Control": "public, max-age=86400"
+      }
+    }
   ],
   "globalHeaders": {
     "X-Content-Type-Options": "nosniff",
     "Referrer-Policy": "strict-origin-when-cross-origin",
-    "X-Frame-Options": "SAMEORIGIN"
+    "X-Frame-Options": "SAMEORIGIN",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=()"
   },
-  "mimeTypes": { ".webp": "image/webp" }
+  "mimeTypes": {
+    ".webp": "image/webp",
+    ".webmanifest": "application/manifest+json",
+    ".txt": "text/plain; charset=utf-8"
+  }
 }

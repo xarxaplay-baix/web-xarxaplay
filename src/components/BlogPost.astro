@@ -1,0 +1,49 @@
+---
+import Base from "../layouts/Base.astro";
+import Related from "./Related.astro";
+import { ill } from "../data/illustrations";
+import { routes, posts, type Post } from "../data/routes";
+import { abs, BUSINESS_ID } from "../data/schema";
+import { texts } from "../i18n/t";
+import { site } from "../site.config";
+interface Props { post: Post }
+const { post } = Astro.props;
+const lang = post.lang;
+const t = texts(lang);
+const other = posts.find((p) => p.key === post.key && p.lang !== lang)!;
+const alternates = lang === "ca" ? { ca: post.url, es: other.url } : { ca: other.url, es: post.url };
+const i = ill[post.key];
+const og = `/img/og-blog-${post.key}.jpg`;
+const iso = post.date.toISOString().slice(0, 10);
+const dateText = post.date.toLocaleDateString(lang === "es" ? "es-ES" : "ca-ES", { day: "numeric", month: "long", year: "numeric" });
+const article = {
+  "@type": "BlogPosting",
+  "@id": abs(post.url) + "#article",
+  headline: post.title,
+  description: post.description,
+  inLanguage: lang,
+  datePublished: iso,
+  dateModified: iso,
+  image: abs(og),
+  author: { "@id": BUSINESS_ID },
+  publisher: { "@id": BUSINESS_ID },
+  mainEntityOfPage: { "@id": abs(post.url) + "#webpage" },
+  isPartOf: { "@id": abs(routes.blog[lang]) + "#webpage" },
+  articleSection: post.tag,
+};
+const { Content } = post;
+---
+<Base lang={lang} path={post.url} alternates={alternates} title={post.seoTitle} description={post.description} ogImage={og} ogType="article"
+  crumbs={[{ name: "Blog", url: routes.blog[lang] }, { name: post.title, url: post.url }]} schema={[article]}>
+  <article class="art-page">
+    <div class="art-hero"><svg class="ill" style={`background:${i.bg}`} viewBox="0 0 600 340" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false" set:html={i.inner} /></div>
+    <div class="art-wrap">
+      <p class="eyebrow">{post.tag}</p>
+      <h1 class="art-title">{post.title}</h1>
+      <p class="art-meta">XarxaPlay · <time datetime={iso}>{dateText}</time> · {post.minutes} min</p>
+      <div class="art-body"><Content /></div>
+      <div class="art-cta"><p><Fragment set:html={t["art_cta"]} /></p><div class="cta-row" style="margin:0"><a class="btn btn-ball" href={site.playtomic}><Fragment set:html={t["cta_book"]} /></a><a class="btn btn-ghost light" href={`${routes.escola[lang]}#prova`}><Fragment set:html={t["cta_trial"]} /></a></div></div>
+    </div>
+  </article>
+  <Related lang={lang} keys={post.related} />
+</Base>

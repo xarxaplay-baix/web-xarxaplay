@@ -1,0 +1,55 @@
+---
+// Pàgina de l'escola de pàdel + prova gratuïta (també landing per a Google Ads).
+import Base from "../layouts/Base.astro";
+import TrialForm from "./TrialForm.astro";
+import FaqList from "./FaqList.astro";
+import Related from "./Related.astro";
+import { escola } from "../data/pages";
+import { routes, resolveLinks, type Lang } from "../data/routes";
+import { faqPage, abs, BUSINESS_ID } from "../data/schema";
+import { texts } from "../i18n/t";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const p = escola[lang];
+const t = texts(lang);
+const path = routes.escola[lang];
+const course = {
+  "@type": "Course",
+  "@id": abs(path) + "#course",
+  name: lang === "es" ? "Escuela de pádel XarxaPlay (niños y adultos)" : "Escola de pàdel XarxaPlay (nens i adults)",
+  description: p.description,
+  inLanguage: lang,
+  provider: { "@id": BUSINESS_ID },
+  educationalLevel: lang === "es" ? "Iniciación, intermedio y avanzado" : "Iniciació, intermedi i avançat",
+  hasCourseInstance: {
+    "@type": "CourseInstance",
+    courseMode: "Onsite",
+    location: { "@id": BUSINESS_ID },
+  },
+};
+---
+<Base lang={lang} path={path} alternates={routes.escola} title={p.title} description={p.description} ogImage="/img/og-escola.jpg"
+  crumbs={[{ name: p.crumb, url: path }]} schema={[course, faqPage(path, p.faq, lang)]}>
+  <section class="block school on-dark" id="prova">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow"><Fragment set:html={t["sc_eyebrow"]} /></p>
+        <h1 class="school-h1"><Fragment set:html={p.h1} /></h1>
+        <p class="lead" style="margin-top:14px"><Fragment set:html={p.lead} /></p>
+        <ol class="steps">
+          <li><div><b><Fragment set:html={t["s1b"]} /></b><span><Fragment set:html={t["s1"]} /></span></div></li>
+          <li><div><b><Fragment set:html={t["s2b"]} /></b><span><Fragment set:html={t["s2"]} /></span></div></li>
+          <li><div><b><Fragment set:html={t["s3b"]} /></b><span><Fragment set:html={t["s3"]} /></span></div></li>
+        </ol>
+      </div>
+      <TrialForm lang={lang} level="h2" />
+    </div>
+  </section>
+  <section class="block prose-block">
+    <div class="wrap prose">
+      {p.sections.map((sec) => <><h2 set:html={sec.h2} /><Fragment set:html={resolveLinks(sec.html, lang)} /></>)}
+    </div>
+  </section>
+  <FaqList items={p.faq} eyebrow={t["fq_eyebrow"]} title={lang === "es" ? "Escuela de pádel: preguntas frecuentes" : "Escola de pàdel: preguntes freqüents"} />
+  <Related lang={lang} keys={["escola", "beneficis", "americana"]} />
+</Base>
