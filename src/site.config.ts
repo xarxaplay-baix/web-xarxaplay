@@ -22,11 +22,14 @@ export const site = {
   // Clau d'IndexNow (Bing, Copilot, Yandex...). El fitxer public/<clau>.txt ha de contenir la mateixa clau.
   indexNowKey: "6f3b1c9e4a7d42e8b05c1f2a9d8e7c63",
 
-  // Horaris (els mateixos que a la fitxa de Google Business Profile). Es publiquen a les dades estructurades.
+  // Horaris del Complex Esportiu Baldiri Aleu (normativa d'ús, 00-general/04-altes-contracte-i-normativa-us.docx),
+  // temporada d'hivern. A l'estiu, diumenges i festius fins a les 18:00. Vigílies (24 i 31/12, 5/1, 23/6) tanca a les 18:00.
+  // Tancat: 1 i 6/1, Divendres Sant, Dilluns de Pasqua, 20/5 (Festa Major), 25 i 26/12.
+  // Han de coincidir amb la fitxa de Google Business Profile.
   openingHours: [
-    { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:00", closes: "22:30" },
+    { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "07:30", closes: "22:30" },
     { days: ["Saturday"], opens: "08:00", closes: "20:00" },
-    { days: ["Sunday"], opens: "08:00", closes: "14:00" },
+    { days: ["Sunday", "PublicHolidays"], opens: "08:00", closes: "14:00" },
   ] as { days: string[]; opens: string; closes: string }[],
   // PENDENT: coordenades exactes de l'entrada (Google Maps → clic dret → copiar coordenades).
   geo: null as null | { lat: number; lng: number },

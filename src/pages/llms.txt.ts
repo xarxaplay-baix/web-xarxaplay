@@ -14,7 +14,7 @@ export const GET: APIRoute = () => {
     "",
     "## Dades clau",
     `- Adreça: ${site.address.street}, ${site.address.postalCode} ${site.address.city} (${site.address.region})`,
-    "- Horari: dilluns a divendres 8:00–22:30; dissabte 8:00–20:00; diumenge 8:00–14:00",
+    "- Horari: dilluns a divendres 7:30–22:30; dissabte 8:00–20:00; diumenges i festius 8:00–14:00 (estiu fins a les 18:00); vigílies (24 i 31/12, 5/1, 23/6) fins a les 18:00; tancat 1 i 6/1, Divendres Sant, Dilluns de Pasqua, 20/5, 25 i 26/12",
     "- Telèfon: +34 611 75 52 75 · +34 936 30 28 38 (fix)",
     `- Email: ${site.email}`,
     `- Reserves: ${site.playtomic}`,
