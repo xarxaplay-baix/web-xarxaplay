@@ -64,7 +64,7 @@
  "t2": "Migdia",
  "t3": "Tarda",
  "t4": "Cap de setmana",
- "f_ok": "Accepto la política de privacitat i que XarxaPlay em contacti per aquesta sol·licitud.",
+ "f_ok": "Accepto la <a href=\"/privacitat/\">política de privacitat</a> i que XarxaPlay em contacti per aquesta sol·licitud.",
  "f_send": "Vull la classe gratis",
  "f_okmsg": "Gràcies! Et trucarem aviat per triar horari. (Al prototip no s'envia res.)",
  "f_note": "Condicions de la prova pendents de confirmar pel club.",
@@ -203,5 +203,8 @@
  "bl_all": "Veure tots els articles",
  "more_padel": "Pistes de pàdel",
  "more_pick": "Pistes de pickleball",
- "more_ten": "Pista de tennis"
+ "more_ten": "Pista de tennis",
+ "lg_avis": "Avís legal",
+ "lg_priv": "Privacitat",
+ "lg_gal": "Galetes"
 }

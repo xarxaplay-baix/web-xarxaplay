@@ -62,7 +62,7 @@
  "t2": "Mediodía",
  "t3": "Tarde",
  "t4": "Fin de semana",
- "f_ok": "Acepto la política de privacidad y que XarxaPlay me contacte por esta solicitud.",
+ "f_ok": "Acepto la <a href=\"/es/privacidad/\">política de privacidad</a> y que XarxaPlay me contacte por esta solicitud.",
  "f_send": "Quiero la clase gratis",
  "f_okmsg": "¡Gracias! Te llamaremos pronto para elegir horario. (En el prototipo no se envía nada.)",
  "f_note": "Condiciones de la prueba pendientes de confirmar por el club.",
@@ -218,5 +218,8 @@
  "bl_all": "Ver todos los artículos",
  "more_padel": "Pistas de pádel",
  "more_pick": "Pistas de pickleball",
- "more_ten": "Pista de tenis"
+ "more_ten": "Pista de tenis",
+ "lg_avis": "Aviso legal",
+ "lg_priv": "Privacidad",
+ "lg_gal": "Cookies"
 }

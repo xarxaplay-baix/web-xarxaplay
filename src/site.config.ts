@@ -12,6 +12,13 @@ export const site = {
   phone: "+34611755275",
   phoneFix: "+34936302838",
   email: "info@xarxaplay.es",
+  // Titular de la web (avís legal i privacitat)
+  owner: {
+    name: "Associació per a l'Impuls de l'Esport i el Benestar (AIEB)",
+    cif: "G-26913954",
+    registry: "Registre d'entitats jurídiques de la Generalitat de Catalunya, núm. 78877",
+    privacyEmail: "info@complexbaldirialeu.com",
+  },
   address: {
     street: "C/ Baldiri Aleu 1-7",
     postalCode: "08830",

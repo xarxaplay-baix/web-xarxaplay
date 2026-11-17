@@ -8,6 +8,9 @@ export const routes = {
   tennis: { ca: "/tennis/", es: "/es/tenis/" },
   escola: { ca: "/escola-padel/", es: "/es/escuela-padel/" },
   blog: { ca: "/blog/", es: "/es/blog/" },
+  avis: { ca: "/avis-legal/", es: "/es/aviso-legal/" },
+  privacitat: { ca: "/privacitat/", es: "/es/privacidad/" },
+  galetes: { ca: "/galetes/", es: "/es/cookies/" },
 } as const;
 
 export type RouteKey = keyof typeof routes;

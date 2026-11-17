@@ -35,7 +35,7 @@ const year = new Date().getFullYear();
         <li><a href={site.playtomic} rel="noopener">Playtomic</a></li>
       </ul></div>
     </div>
-    <div class="legal"><span>© {year} XarxaPlay · Complex Esportiu Baldiri Aleu</span><span><Fragment set:html={t["ft_legal"]} /> · <button type="button" class="link-btn" data-cookie-settings><Fragment set:html={t["ck_settings"]} /></button></span></div>
+    <div class="legal"><span>© {year} XarxaPlay · Complex Esportiu Baldiri Aleu</span><span><a href={r("avis")} set:html={t["lg_avis"]} /> · <a href={r("privacitat")} set:html={t["lg_priv"]} /> · <a href={r("galetes")} set:html={t["lg_gal"]} /> · <button type="button" class="link-btn" data-cookie-settings><Fragment set:html={t["ck_settings"]} /></button></span></div>
   </div>
 </footer>
 

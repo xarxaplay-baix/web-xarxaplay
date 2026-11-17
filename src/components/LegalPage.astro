@@ -1,0 +1,17 @@
+---
+import Base from "../layouts/Base.astro";
+import { legal } from "../data/legal";
+import { routes, type Lang } from "../data/routes";
+interface Props { lang: Lang; doc: "avis" | "privacitat" | "galetes" }
+const { lang, doc } = Astro.props;
+const d = legal[doc][lang];
+const path = routes[doc][lang];
+---
+<Base lang={lang} path={path} alternates={routes[doc]} title={d.title} description={d.description} crumbs={[{ name: d.crumb, url: path }]}>
+  <section class="block">
+    <div class="wrap prose legal-doc">
+      <h1 class="page-h1" set:html={d.title.replace(" | XarxaPlay", "")} />
+      <Fragment set:html={d.html} />
+    </div>
+  </section>
+</Base>
