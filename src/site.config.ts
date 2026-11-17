@@ -22,9 +22,12 @@ export const site = {
   // Clau d'IndexNow (Bing, Copilot, Yandex...). El fitxer public/<clau>.txt ha de contenir la mateixa clau.
   indexNowKey: "6f3b1c9e4a7d42e8b05c1f2a9d8e7c63",
 
-  // PENDENT DEL CLUB: horaris reals. Quan es tinguin, omplir i es publicaran a les dades estructurades.
-  // Format: { days: ["Monday", ...], opens: "08:00", closes: "23:00" }
-  openingHours: [] as { days: string[]; opens: string; closes: string }[],
+  // Horaris (els mateixos que a la fitxa de Google Business Profile). Es publiquen a les dades estructurades.
+  openingHours: [
+    { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:00", closes: "22:30" },
+    { days: ["Saturday"], opens: "08:00", closes: "20:00" },
+    { days: ["Sunday"], opens: "08:00", closes: "14:00" },
+  ] as { days: string[]; opens: string; closes: string }[],
   // PENDENT: coordenades exactes de l'entrada (Google Maps → clic dret → copiar coordenades).
   geo: null as null | { lat: number; lng: number },
 };

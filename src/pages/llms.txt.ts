@@ -14,6 +14,7 @@ export const GET: APIRoute = () => {
     "",
     "## Dades clau",
     `- Adreça: ${site.address.street}, ${site.address.postalCode} ${site.address.city} (${site.address.region})`,
+    "- Horari: dilluns a divendres 8:00–22:30; dissabte 8:00–20:00; diumenge 8:00–14:00",
     "- Telèfon: +34 611 75 52 75 · +34 936 30 28 38 (fix)",
     `- Email: ${site.email}`,
     `- Reserves: ${site.playtomic}`,

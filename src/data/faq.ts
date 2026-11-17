@@ -8,7 +8,7 @@ const home: Record<Lang, Faq[]> = {
   ca: [
     { q: "On puc jugar a pàdel a Sant Boi de Llobregat?", a: "A XarxaPlay, dins el Complex Esportiu Baldiri Aleu (C/ Baldiri Aleu 1-7, 08830 Sant Boi de Llobregat). Tenim 11 pistes de pàdel obertes cada dia, festius inclosos." },
     { q: "Com reservo una pista?", a: "Online a Playtomic, al club «Complex Esportiu Baldiri Aleu». Hi pots reservar pàdel, pickleball i tennis. També pots trucar al +34 611 75 52 75." },
-    { q: "Quins horaris teniu?", a: "Obrim de dilluns a diumenge, festius inclosos, amb amplis horaris. A Playtomic veus en temps real les hores lliures de cada pista." },
+    { q: "Quins horaris teniu?", a: "De dilluns a divendres de 8:00 a 22:30, dissabtes de 8:00 a 20:00 i diumenges de 8:00 a 14:00. A Playtomic veus en temps real les hores lliures de cada pista." },
     { q: "Hi ha pistes de pickleball al Baix Llobregat?", a: "Sí. A XarxaPlay tenim 4 pistes de pickleball a Sant Boi de Llobregat, per a tots els nivells i edats." },
     { q: "Feu classes de pàdel per a nens i adults?", a: "Sí. L'escola de pàdel té grups per a nens i adults, des d'iniciació fins a competició, i la primera classe de prova és gratuïta." },
     { q: "Feu tornejos i americanes?", a: "Sí. Organitzem americanes de pàdel cada setmana i tornejos de pàdel, pickleball i tennis durant l'any. Les dates es publiquen a Instagram (@xarxaplay)." },
@@ -20,7 +20,7 @@ const home: Record<Lang, Faq[]> = {
   es: [
     { q: "¿Dónde puedo jugar a pádel en Sant Boi de Llobregat?", a: "En XarxaPlay, dentro del Complex Esportiu Baldiri Aleu (C/ Baldiri Aleu 1-7, 08830 Sant Boi de Llobregat). Tenemos 11 pistas de pádel abiertas todos los días, festivos incluidos." },
     { q: "¿Cómo reservo una pista?", a: "Online en Playtomic, en el club «Complex Esportiu Baldiri Aleu». Puedes reservar pádel, pickleball y tenis. También puedes llamar al +34 611 75 52 75." },
-    { q: "¿Qué horarios tenéis?", a: "Abrimos de lunes a domingo, festivos incluidos, con amplios horarios. En Playtomic ves en tiempo real las horas libres de cada pista." },
+    { q: "¿Qué horarios tenéis?", a: "De lunes a viernes de 8:00 a 22:30, sábados de 8:00 a 20:00 y domingos de 8:00 a 14:00. En Playtomic ves en tiempo real las horas libres de cada pista." },
     { q: "¿Hay pistas de pickleball en el Baix Llobregat?", a: "Sí. En XarxaPlay tenemos 4 pistas de pickleball en Sant Boi de Llobregat, para todos los niveles y edades." },
     { q: "¿Hacéis clases de pádel para niños y adultos?", a: "Sí. La escuela de pádel tiene grupos para niños y adultos, desde iniciación hasta competición, y la primera clase de prueba es gratuita." },
     { q: "¿Hacéis torneos y americanas?", a: "Sí. Organizamos americanas de pádel cada semana y torneos de pádel, pickleball y tenis durante el año. Las fechas se publican en Instagram (@xarxaplay)." },
