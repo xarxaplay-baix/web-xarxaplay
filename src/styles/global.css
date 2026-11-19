@@ -396,9 +396,11 @@ button.tj-d.is-sel i b,button.tj-d:hover i b{box-shadow:0 0 0 1.5px #fff}
 .tj-desc{color:var(--muted);font-size:.95rem}
 .tj-meta{list-style:none;margin:2px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.9rem;font-weight:600}
 .tj-meta li+li::before{content:"·";margin-right:14px;color:var(--muted)}
-.tj-cta{grid-column:2}
-.tj-cta .btn{padding:8px 16px;font-size:.85rem}
-@media (min-width:700px){.tj-item{grid-template-columns:64px 1fr auto;align-items:center}.tj-cta{grid-column:auto}}
+.tj-cta{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;padding-top:12px;border-top:1px solid var(--line)}
+.tj-cta .btn{padding:7px 14px;font-size:.8rem}
+.tj-date{align-self:start}
+.tj-tel span{font-weight:600}
+@media (min-width:700px){.tj-cta{grid-column:2}}
 .tj-empty{background:var(--card);border:1px dashed var(--line);border-radius:var(--radius);padding:28px;display:grid;gap:10px;justify-items:start}
 .tj-empty[hidden]{display:none}
 .tj-empty h3{font-style:normal;font-size:1.25rem}

@@ -29,6 +29,10 @@ const range = (e: (typeof events)[number]) => {
 const hours = (e: (typeof events)[number]) => e.timeStart ? (e.timeEnd ? `${e.timeStart}–${e.timeEnd}` : e.timeStart) : "";
 const price = (p: number | null) => p === null ? L.priceAsk : p === 0 ? L.free : `${p.toLocaleString(lang === "es" ? "es-ES" : "ca-ES", { maximumFractionDigits: 2 })} €`;
 const contact = homeAnchor(lang, "contacte");
+const isPt = (u: string) => /playtomic\./i.test(u);
+const pt = (e: (typeof events)[number]) => (e.url && isPt(e.url) ? e.url : site.playtomic);
+const closed = (e: (typeof events)[number]) => e.state === "complet" || e.state === "cancellat" || e.state === "ajornat";
+const phoneLabel = "611 75 52 75";
 const data = events.map((e) => ({ s: e.start, e: e.end, sp: e.sport, id: e.id, t: e.title[lang] }));
 ---
 <div class="tj" data-lang={lang}>
@@ -75,9 +79,10 @@ const data = events.map((e) => ({ s: e.start, e: e.end, sp: e.sport, id: e.id, t
                   </ul>
                 </div>
                 <div class="tj-cta">
-                  {e.state === "cancellat" || e.state === "complet" || e.state === "ajornat"
-                    ? <a class="btn btn-ghost" href={contact}>{L.info}</a>
-                    : <a class="btn btn-green" href={e.url ?? contact} rel={e.url ? "noopener" : undefined} data-ev="tournament_signup">{e.url ? L.signup : L.ask}</a>}
+                  {!closed(e) && <a class="btn btn-green" href={pt(e)} rel="noopener" data-ev="tournament_playtomic">{L.playtomic}</a>}
+                  {!closed(e) && e.url && !isPt(e.url) && <a class="btn btn-green" href={e.url} rel="noopener" data-ev="tournament_signup">{L.signup}</a>}
+                  <a class="btn btn-ghost tj-tel" href={`tel:${site.phone}`} data-ev="tournament_call"><span>{L.call}</span> {phoneLabel}</a>
+                  <a class="btn btn-ghost" href={contact} data-ev="tournament_info">{L.ask}</a>
                 </div>
               </li>
             ))}
