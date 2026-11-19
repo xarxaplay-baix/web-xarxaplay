@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Related from "./Related.astro";
 import { ill } from "../data/illustrations";
+import { blogPhotos } from "../data/blogPhotos";
 import { routes, posts, type Post } from "../data/routes";
 import { abs, BUSINESS_ID } from "../data/schema";
 import { texts } from "../i18n/t";
@@ -13,6 +14,7 @@ const t = texts(lang);
 const other = posts.find((p) => p.key === post.key && p.lang !== lang)!;
 const alternates = lang === "ca" ? { ca: post.url, es: other.url } : { ca: other.url, es: post.url };
 const i = ill[post.key];
+const ph = blogPhotos[post.key];
 const og = `/img/og-blog-${post.key}.jpg`;
 const iso = post.date.toISOString().slice(0, 10);
 const dateText = post.date.toLocaleDateString(lang === "es" ? "es-ES" : "ca-ES", { day: "numeric", month: "long", year: "numeric" });
@@ -36,7 +38,7 @@ const { Content } = post;
 <Base lang={lang} path={post.url} alternates={alternates} title={post.seoTitle} description={post.description} ogImage={og} ogType="article"
   crumbs={[{ name: "Blog", url: routes.blog[lang] }, { name: post.title, url: post.url }]} schema={[article]}>
   <article class="art-page">
-    <div class="art-hero"><svg class="ill" style={`background:${i.bg}`} viewBox="0 0 600 340" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false" set:html={i.inner} /></div>
+    <div class:list={["art-hero", { photo: ph }]}>{ph ? <img src={ph.src} srcset={`${ph.small} ${ph.small.includes("-360") ? 360 : 600}w, ${ph.src} 1000w`} sizes="100vw" alt={ph.alt[lang]} width="1000" height="560" fetchpriority="high" decoding="async"> : <svg class="ill" style={`background:${i.bg}`} viewBox="0 0 600 340" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false" set:html={i.inner} />}</div>
     <div class="art-wrap">
       <p class="eyebrow">{post.tag}</p>
       <h1 class="art-title">{post.title}</h1>

@@ -1,12 +1,14 @@
 ---
 import { ill } from "../data/illustrations";
+import { blogPhotos } from "../data/blogPhotos";
 import type { Post } from "../data/routes";
 interface Props { post: Post; t: Record<string, string>; level?: "h2" | "h3" }
 const { post, t, level = "h3" } = Astro.props;
 const i = ill[post.key];
+const ph = blogPhotos[post.key];
 const H = level;
 ---
 <article class="post"><a class="post-link" href={post.url}>
-<div class="post-img"><svg class="ill" style={`background:${i.bg}`} viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" set:html={i.inner} /><span class="tagpill">{post.tag}</span></div>
+<div class="post-img">{ph ? <img class="post-photo" src={ph.small} srcset={`${ph.small} ${ph.small.includes("-360") ? 360 : 600}w, ${ph.src} 1000w`} sizes="(max-width: 700px) 100vw, 380px" alt={ph.alt[post.lang]} width="600" height="338" loading="lazy" decoding="async"> : <svg class="ill" style={`background:${i.bg}`} viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" set:html={i.inner} />}<span class="tagpill">{post.tag}</span></div>
 <div class="post-body"><H>{post.title}</H><p>{post.description}</p>
 <span class="post-more"><span set:html={t["read_more"]} /> · {post.minutes} min</span></div></a></article>

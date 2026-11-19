@@ -33,9 +33,11 @@ const cur = (href: string) => (href === here ? "page" : undefined);
       {links.map((l) => <a href={l.href} aria-current={cur(l.href)} set:html={l.label} />)}
     </nav>
     <a class="btn btn-green" href={site.playtomic}><Fragment set:html={t["cta_book"]} /></a>
+    <a class="ceba-logo" href="https://www.complexbaldirialeu.com/" rel="noopener" target="_blank" title="Complex Esportiu Baldiri Aleu"><img src="/img/logo-ce-baldiri-aleu-180.webp" srcset="/img/logo-ce-baldiri-aleu-180.webp 180w, /img/logo-ce-baldiri-aleu-360.webp 360w" sizes="96px" alt="Complex Esportiu Baldiri Aleu" width="566" height="322"></a>
     <button class="menu-btn" type="button" id="menu-btn" aria-expanded="false" aria-controls="mobile-nav"><Fragment set:html={t["menu"]} /></button>
   </div>
   <nav class="mobile-nav" id="mobile-nav" aria-label={lang === "es" ? "Menú móvil" : "Menú mòbil"}>
     {links.map((l) => <a href={l.href} aria-current={cur(l.href)} set:html={l.label} />)}
+    <a class="ceba-mobile" href="https://www.complexbaldirialeu.com/" rel="noopener" target="_blank"><img src="/img/logo-ce-baldiri-aleu-180.webp" alt="" width="566" height="322" loading="lazy"><span>Complex Esportiu Baldiri Aleu</span></a>
   </nav>
 </header>
