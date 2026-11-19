@@ -338,7 +338,10 @@ footer .legal a{text-decoration:underline}
 header.site{position:sticky}
 .ceba-logo{display:none}
 .ceba-logo img{height:46px;width:auto}
-@media (min-width:1440px){.ceba-logo{display:block;position:absolute;right:28px;top:50%;transform:translateY(-50%)}}
+nav.main a,header.site .btn{white-space:nowrap}
+@media (min-width:1020px){.ceba-logo{display:block;flex:none;padding-left:16px;border-left:1px solid var(--line)}.ceba-logo img{height:52px}}
+@media (min-width:1020px) and (max-width:1439px){nav.main{gap:14px;font-size:.9rem}header.site .wrap{gap:14px}header.site .btn{padding-inline:16px}.logo img{height:48px}.ceba-logo img{height:46px}}
+@media (min-width:1020px) and (max-width:1199px){nav.main{gap:10px;font-size:.84rem}}
 .ceba-mobile{display:flex;align-items:center;gap:12px;border-bottom:0!important;padding-top:14px!important;font-weight:600;color:var(--muted)}
 .ceba-mobile img{height:34px;width:auto}
 @media (min-width:1020px){.ceba-mobile{display:none}}
