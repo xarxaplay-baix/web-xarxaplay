@@ -10,6 +10,9 @@ on:
     types: [opened, synchronize, reopened, closed]
     branches: [main]
   workflow_dispatch:
+  # Recompila cada matí perquè els tornejos ja passats desapareguin del calendari i de les dades per a Google.
+  schedule:
+    - cron: "17 4 * * *"
 
 permissions:
   contents: read
@@ -44,7 +47,7 @@ jobs:
           skip_app_build: true
 
       - name: Avisar Bing i IndexNow dels canvis
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         continue-on-error: true
         run: node scripts/indexnow.mjs
 

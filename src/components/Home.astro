@@ -1,5 +1,6 @@
 ---
 // Pàgina d'inici (CA i ES). Els textos són a src/i18n/ca.json i src/i18n/es.json
+import TournamentCalendar from "./TournamentCalendar.astro";
 import { texts } from "../i18n/t";
 import { routes, postsFor, type Lang } from "../data/routes";
 import { homeFaq } from "../data/faq";
@@ -132,13 +133,15 @@ const r = (k: keyof typeof routes) => routes[k][lang];
         <h2><Fragment set:html={t["ev_h2"]} /></h2>
         <p class="lead"><Fragment set:html={t["ev_lead"]} /></p>
       </div>
+      <TournamentCalendar lang={lang} />
+      <h3 class="ev-sub"><Fragment set:html={t["ev_sub"]} /></h3>
       <div class="events">
         <article class="event"><span class="tag"><Fragment set:html={t["tag_w"]} /></span><h3><Fragment set:html={t["e1h"]} /></h3><p><Fragment set:html={t["e1p"]} /></p></article>
         <article class="event"><span class="tag"><Fragment set:html={t["tag_c"]} /></span><h3><Fragment set:html={t["e2h"]} /></h3><p><Fragment set:html={t["e2p"]} /></p></article>
         <article class="event pick"><span class="tag"><Fragment set:html={t["tag_c"]} /></span><h3><Fragment set:html={t["e3h"]} /></h3><p><Fragment set:html={t["e3p"]} /></p></article>
         <article class="event ten"><span class="tag"><Fragment set:html={t["tag_c"]} /></span><h3><Fragment set:html={t["e4h"]} /></h3><p><Fragment set:html={t["e4p"]} /></p></article>
       </div>
-      <div class="cta-row"><a class="btn btn-green" href="https://www.instagram.com/xarxaplay/"><Fragment set:html={t["ev_cta"]} /></a></div>
+      <div class="cta-row"><a class="btn btn-ghost" href={site.instagram} rel="noopener"><Fragment set:html={t["ev_cta"]} /></a></div>
     </div>
   </section>
 

@@ -2,13 +2,14 @@
 import Base from "../layouts/Base.astro";
 import { homeFaq } from "../data/faq";
 import { faqPage } from "../data/schema";
+import { eventsSchema } from "../data/tornejos";
 import Home from "../components/Home.astro";
 ---
 <Base
   lang="ca"
   path="/"
   alternates={{ ca: "/", es: "/es/" }}
-  schema={[faqPage("/", homeFaq("ca"), "ca")]}
+  schema={[faqPage("/", homeFaq("ca"), "ca"), ...eventsSchema("ca", "/")]}
   title="Pàdel, pickleball i tennis a Sant Boi de Llobregat | XarxaPlay"
   description="11 pistes de pàdel, 4 de pickleball i 1 de tennis a Sant Boi de Llobregat (Baix Llobregat). Reserva online i prova gratis l'escola de pàdel."
 >

@@ -56,15 +56,74 @@
       ev('mapa_obert');
     });
   }
+
+  // Calendari de tornejos: amaga els passats, filtre per esport i vista mensual
+  var tj=document.querySelector('.tj');
+  if(tj){
+    var pad=function(n){return (n<10?'0':'')+n;};
+    var now=new Date(),today=now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate());
+    var cfg=JSON.parse(tj.querySelector('.tj-data').textContent);
+    var items=[].slice.call(tj.querySelectorAll('.tj-item'));
+    var sport='all',day=null;
+    items.forEach(function(li){ if(li.dataset.end<today){li.classList.add('is-past');} });
+    var evs=cfg.ev.filter(function(e){return e.e>=today;});
+    var refresh=function(){
+      items.forEach(function(li){
+        var ok=!li.classList.contains('is-past')&&(sport==='all'||li.dataset.sport===sport)&&(!day||(li.dataset.start<=day&&li.dataset.end>=day));
+        li.hidden=!ok;
+      });
+      tj.querySelectorAll('.tj-month').forEach(function(m){m.hidden=!m.querySelector('.tj-item:not([hidden])');});
+      var empty=tj.querySelector('.tj-empty'); if(empty) empty.hidden=!!tj.querySelector('.tj-item:not([hidden])')||(sport!=='all'||day);
+      draw();
+    };
+    tj.querySelectorAll('.tj-chip').forEach(function(b){b.addEventListener('click',function(){
+      sport=b.dataset.sport; day=null;
+      tj.querySelectorAll('.tj-chip').forEach(function(x){x.setAttribute('aria-pressed',String(x===b));});
+      var f=evs.filter(function(e){return sport==='all'||e.sp===sport;})[0];
+      if(f&&f.s>=today){vy=+f.s.slice(0,4);vm=+f.s.slice(5,7)-1;}
+      refresh(); ev('filtre_tornejos',{sport:sport});
+    });});
+    // Vista mensual
+    var cal=tj.querySelector('.tj-cal'),title=cal&&cal.querySelector('.tj-cal-title'),grid=cal&&cal.querySelector('.tj-cal-days');
+    var first=evs.length?evs[0].s:today; var vy=+first.slice(0,4),vm=+first.slice(5,7)-1;
+    if(first<today){vy=now.getFullYear();vm=now.getMonth();}
+    function draw(){
+      if(!cal) return;
+      title.textContent=cfg.m[vm]+' '+vy;
+      var html=cfg.d.map(function(x){return '<span class="tj-dow">'+x+'</span>';}).join('');
+      var start=(new Date(vy,vm,1).getDay()+6)%7, n=new Date(vy,vm+1,0).getDate();
+      for(var i=0;i<start;i++) html+='<span></span>';
+      for(var dd=1;dd<=n;dd++){
+        var iso=vy+'-'+pad(vm+1)+'-'+pad(dd);
+        var hits=evs.filter(function(e){return e.s<=iso&&e.e>=iso&&(sport==='all'||e.sp===sport);});
+        var cls='tj-d'+(iso===today?' is-today':'')+(iso===day?' is-sel':'');
+        if(hits.length){
+          var sp=hits.map(function(e){return e.sp;}).filter(function(v,i,a){return a.indexOf(v)===i;});
+          html+='<button type="button" class="'+cls+' has-ev" data-day="'+iso+'" title="'+hits.map(function(e){return e.t.replace(/"/g,'&quot;');}).join(' · ')+'">'+dd+'<i>'+sp.map(function(s){return '<b class="sp-'+s+'"></b>';}).join('')+'</i></button>';
+        } else html+='<span class="'+cls+'">'+dd+'</span>';
+      }
+      grid.innerHTML=html;
+    }
+    if(cal){
+      cal.addEventListener('click',function(e){
+        var nav=e.target.closest('.tj-nav');
+        if(nav){vm+=+nav.dataset.dir; if(vm<0){vm=11;vy--;} if(vm>11){vm=0;vy++;} draw(); return;}
+        var b=e.target.closest('.has-ev'); if(!b) return;
+        day=(day===b.dataset.day)?null:b.dataset.day; refresh();
+        var t=tj.querySelector('.tj-item:not([hidden])'); if(day&&t&&window.innerWidth<900) t.scrollIntoView({behavior:'smooth',block:'center'});
+      });
+    }
+    refresh();
+  }
   // Esdeveniments d'Analytics
   function ev(name,params){ if(window.gtag) gtag('event',name,params||{}); }
   document.addEventListener('click',function(e){
     var a=e.target.closest&&e.target.closest('a'); if(!a) return;
     var h=a.getAttribute('href')||'';
-    if(h.indexOf('playtomic.com')>-1) ev('reserva_pista',{link_url:h});
+    if(a.dataset.ev) ev(a.dataset.ev,{link_url:h});
+    else if(h.indexOf('playtomic.com')>-1) ev('reserva_pista',{link_url:h});
     else if(h.indexOf('tel:')===0) ev('trucada');
     else if(h.indexOf('mailto:')===0) ev('email');
     else if(h.indexOf('wa.me')>-1||h.indexOf('whatsapp')>-1) ev('whatsapp');
-    else if(a.dataset.ev) ev(a.dataset.ev);
   });
 })();

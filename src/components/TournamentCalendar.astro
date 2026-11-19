@@ -1,0 +1,95 @@
+---
+// Calendari de tornejos i americanes. Dades: src/data/tornejos.json (generat des de l'Excel amb scripts/tornejos-xlsx.py)
+import { site } from "../site.config";
+import { homeAnchor, type Lang } from "../data/routes";
+import { upcomingEvents, eventLabels } from "../data/tornejos";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const L = eventLabels[lang];
+const events = upcomingEvents();
+const sports = (["padel", "pickleball", "tennis"] as const).filter((s) => events.some((e) => e.sport === s));
+const months = lang === "es"
+  ? ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"]
+  : ["gener","febrer","març","abril","maig","juny","juliol","agost","setembre","octubre","novembre","desembre"];
+const mshort = months.map((m) => m.slice(0, 3));
+const d = (iso: string) => { const [y, m, dd] = iso.split("-").map(Number); return { y, m, d: dd }; };
+const monthKey = (iso: string) => iso.slice(0, 7);
+const monthTitle = (k: string) => { const { y, m } = d(k + "-01"); return `${months[m - 1]} ${y}`; };
+const groups: { key: string; items: typeof events }[] = [];
+for (const e of events) {
+  const k = monthKey(e.start);
+  const g = groups.find((x) => x.key === k);
+  g ? g.items.push(e) : groups.push({ key: k, items: [e] });
+}
+const range = (e: (typeof events)[number]) => {
+  const a = d(e.start), b = d(e.end);
+  if (e.start === e.end) return `${a.d} ${mshort[a.m - 1]}`;
+  return a.m === b.m ? `${a.d}–${b.d} ${mshort[a.m - 1]}` : `${a.d} ${mshort[a.m - 1]} – ${b.d} ${mshort[b.m - 1]}`;
+};
+const hours = (e: (typeof events)[number]) => e.timeStart ? (e.timeEnd ? `${e.timeStart}–${e.timeEnd}` : e.timeStart) : "";
+const price = (p: number | null) => p === null ? L.priceAsk : p === 0 ? L.free : `${p.toLocaleString(lang === "es" ? "es-ES" : "ca-ES", { maximumFractionDigits: 2 })} €`;
+const contact = homeAnchor(lang, "contacte");
+const data = events.map((e) => ({ s: e.start, e: e.end, sp: e.sport, id: e.id, t: e.title[lang] }));
+---
+<div class="tj" data-lang={lang}>
+  {events.length > 0 && (
+    <div class="tj-filters" role="group" aria-label={L.filter}>
+      <button type="button" class="tj-chip" data-sport="all" aria-pressed="true">{L.all}</button>
+      {sports.map((s) => <button type="button" class={`tj-chip sp-${s}`} data-sport={s} aria-pressed="false">{L.sport[s]}</button>)}
+    </div>
+  )}
+  <div class={`tj-grid${events.length ? "" : " is-empty"}`}>
+    {events.length > 0 && (
+      <div class="tj-cal" aria-hidden="true">
+        <div class="tj-cal-head">
+          <button type="button" class="tj-nav" data-dir="-1" tabindex="-1">‹</button>
+          <strong class="tj-cal-title"></strong>
+          <button type="button" class="tj-nav" data-dir="1" tabindex="-1">›</button>
+        </div>
+        <div class="tj-cal-days"></div>
+        <p class="tj-cal-hint">{L.hint}</p>
+      </div>
+    )}
+    <div class="tj-list">
+      {groups.map((g) => (
+        <section class="tj-month" data-month={g.key}>
+          <h3 class="tj-month-title">{monthTitle(g.key)}</h3>
+          <ol class="tj-items">
+            {g.items.map((e) => (
+              <li class={`tj-item sp-${e.sport} st-${e.state}`} id={`tj-${e.id}`} data-start={e.start} data-end={e.end} data-sport={e.sport}>
+                <div class="tj-date"><span class="tj-day">{d(e.start).d}</span><span class="tj-mon">{mshort[d(e.start).m - 1]}</span></div>
+                <div class="tj-body">
+                  <p class="tj-tags">
+                    <span class={`tj-sport sp-${e.sport}`}>{L.sport[e.sport]}</span>
+                    <span>{L.type[e.type]}</span>
+                    {e.state !== "obertes" && <span class={`tj-state st-${e.state}`}>{L.state[e.state]}</span>}
+                  </p>
+                  <h4 class="tj-title">{e.title[lang]}</h4>
+                  {e.desc[lang] && <p class="tj-desc">{e.desc[lang]}</p>}
+                  <ul class="tj-meta">
+                    <li><span class="sr">{L.when}: </span><time datetime={e.start}>{range(e)}</time>{hours(e) && <> · {hours(e)}</>}</li>
+                    {e.level && <li>{L.level[e.level]}</li>}
+                    {e.category && <li>{L.category[e.category]}</li>}
+                    <li>{price(e.price)}</li>
+                    {e.places && <li>{e.places} {L.places}</li>}
+                  </ul>
+                </div>
+                <div class="tj-cta">
+                  {e.state === "cancellat" || e.state === "complet" || e.state === "ajornat"
+                    ? <a class="btn btn-ghost" href={contact}>{L.info}</a>
+                    : <a class="btn btn-green" href={e.url ?? contact} rel={e.url ? "noopener" : undefined} data-ev="tournament_signup">{e.url ? L.signup : L.ask}</a>}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ))}
+      <div class="tj-empty" hidden={events.length > 0}>
+        <h3>{L.emptyH}</h3>
+        <p>{L.emptyP}</p>
+        <a class="btn btn-green" href={site.instagram} rel="noopener">{L.emptyCta}</a>
+      </div>
+    </div>
+  </div>
+  <script type="application/json" class="tj-data" set:html={JSON.stringify({ m: months, d: lang === "es" ? ["L","M","X","J","V","S","D"] : ["Dl","Dt","Dc","Dj","Dv","Ds","Dg"], ev: data })} />
+</div>

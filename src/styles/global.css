@@ -352,3 +352,58 @@ nav.main a,header.site .btn{white-space:nowrap}
 .art-hero.photo{height:clamp(240px,42vw,460px);overflow:hidden;background:var(--ink)}
 .art-hero.photo img{width:100%;height:100%;object-fit:cover;object-position:center 35%}
 .post-body h2{font-size:1.25rem;line-height:1.15;font-style:normal}
+
+/* Calendari de tornejos */
+.tj{--pad:#4C7320;--pick:#2D5C8C;--ten:#B4552E;margin-bottom:40px}
+.tj .sp-padel{--c:var(--pad)}.tj .sp-pickleball{--c:var(--pick)}.tj .sp-tennis{--c:var(--ten)}
+.tj-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.tj-chip{font:inherit;font-weight:700;font-size:.9rem;border:2px solid var(--c,var(--ink));color:var(--c,var(--ink));background:var(--card);border-radius:999px;padding:5px 14px;cursor:pointer}
+.tj-chip[aria-pressed="true"]{background:var(--c,var(--ink));color:#fff}
+.tj-grid{display:grid;gap:22px;align-items:start}
+@media (min-width:900px){.tj-grid{grid-template-columns:320px 1fr}.tj-grid.is-empty{grid-template-columns:1fr}.tj-cal{position:sticky;top:96px}}
+.tj-cal{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.tj-cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.tj-cal-title{font-family:var(--display);font-style:italic;font-weight:800;font-size:1.15rem;text-transform:capitalize}
+.tj-nav{font:inherit;font-size:1.4rem;line-height:1;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--paper);cursor:pointer}
+.tj-nav:hover{border-color:var(--green)}
+.tj-cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:.9rem}
+.tj-dow{font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;padding-bottom:4px}
+.tj-d{display:grid;place-items:center;aspect-ratio:1;border-radius:10px;color:var(--muted);position:relative}
+.tj-d.is-today{outline:2px solid var(--ball);outline-offset:-2px;color:var(--ink);font-weight:700}
+button.tj-d{font:inherit;font-weight:800;color:var(--ink);background:var(--paper);border:1px solid var(--line);cursor:pointer;padding:0}
+button.tj-d:hover,button.tj-d.is-sel{background:var(--green);color:#fff;border-color:var(--green)}
+.tj-d i{position:absolute;bottom:4px;left:0;right:0;display:flex;justify-content:center;gap:2px}
+.tj-d i b{width:6px;height:6px;border-radius:50%;background:var(--c)}
+button.tj-d.is-sel i b,button.tj-d:hover i b{box-shadow:0 0 0 1.5px #fff}
+.tj-cal-hint{font-size:.82rem;color:var(--muted);margin-top:10px}
+.tj-month+.tj-month{margin-top:26px}
+.tj-month-title{font-size:1.05rem;text-transform:uppercase;letter-spacing:.06em;font-style:normal;color:var(--green);margin-bottom:12px}
+.tj-items{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.tj-item{display:grid;grid-template-columns:64px 1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:var(--radius);padding:18px;scroll-margin-top:110px}
+.tj-item[hidden],.tj-month[hidden]{display:none}
+.tj-date{display:grid;align-content:start;justify-items:center;background:var(--paper);border-radius:10px;padding:8px 0;line-height:1}
+.tj-day{font-family:var(--display);font-weight:800;font-size:1.8rem}
+.tj-mon{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:4px}
+.tj-body{display:grid;gap:6px;min-width:0}
+.tj-tags{display:flex;flex-wrap:wrap;gap:6px;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em}
+.tj-tags span{border:1px solid var(--line);border-radius:999px;padding:2px 9px;background:var(--paper)}
+.tj-tags .tj-sport{background:var(--c);border-color:var(--c);color:#fff}
+.tj-state.st-ultimes{background:var(--ball)!important;border-color:var(--ball)!important}
+.tj-state.st-complet,.tj-state.st-ajornat{background:#FFF1D6!important;border-color:#E8C27A!important}
+.tj-state.st-cancellat{background:#FBE1E1!important;border-color:#E09A9A!important;color:#8A1F1F}
+.tj-item.st-cancellat .tj-title{text-decoration:line-through}
+.tj-title{font-size:1.2rem;font-style:normal}
+.tj-desc{color:var(--muted);font-size:.95rem}
+.tj-meta{list-style:none;margin:2px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.9rem;font-weight:600}
+.tj-meta li+li::before{content:"·";margin-right:14px;color:var(--muted)}
+.tj-cta{grid-column:2}
+.tj-cta .btn{padding:8px 16px;font-size:.85rem}
+@media (min-width:700px){.tj-item{grid-template-columns:64px 1fr auto;align-items:center}.tj-cta{grid-column:auto}}
+.tj-empty{background:var(--card);border:1px dashed var(--line);border-radius:var(--radius);padding:28px;display:grid;gap:10px;justify-items:start}
+.tj-empty[hidden]{display:none}
+.tj-empty h3{font-style:normal;font-size:1.25rem}
+.tj-empty p{color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ev-sub{font-size:1.2rem;font-style:normal;margin:6px 0 14px}
+.tj-title{margin:0}.tj-body{align-content:start}
+@media (max-width:899px){.tj-d{aspect-ratio:auto;height:38px}.tj-cal{padding:12px}.tj-cal-hint{display:none}}
