@@ -68,12 +68,12 @@
       "statusCode": 301
     },
     {
-      "route": "/esdeveniments",
+      "route": "/esdeveniments*",
       "redirect": "/#tornejos",
       "statusCode": 301
     },
     {
-      "route": "/blog-standard",
+      "route": "/blog-standard*",
       "redirect": "/blog/",
       "statusCode": 301
     },
@@ -125,6 +125,221 @@
     {
       "route": "/author/*",
       "redirect": "/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/regles-del-pickleball",
+      "redirect": "/blog/que-es-pickleball/",
+      "statusCode": 301
+    },
+    {
+      "route": "/beneficis-de-jugar-a-pickleball",
+      "redirect": "/blog/que-es-pickleball/",
+      "statusCode": 301
+    },
+    {
+      "route": "/el-boom-del-pickleball",
+      "redirect": "/blog/que-es-pickleball/",
+      "statusCode": 301
+    },
+    {
+      "route": "/beneficis-de-jugar-a-padel",
+      "redirect": "/blog/beneficis-jugar-padel/",
+      "statusCode": 301
+    },
+    {
+      "route": "/els-beneficis-fisics-i-mentals-dels-esports-de-raqueta-padel-tennis-i-pickleball",
+      "redirect": "/blog/beneficis-jugar-padel/",
+      "statusCode": 301
+    },
+    {
+      "route": "/escuela-de-padel-baix-llobregat",
+      "redirect": "/es/escuela-padel/",
+      "statusCode": 301
+    },
+    {
+      "route": "/clases-de-padel-setmana-del-22-al-26-de-desembre",
+      "redirect": "/es/escuela-padel/",
+      "statusCode": 301
+    },
+    {
+      "route": "/services/escola-de-padel",
+      "redirect": "/escola-padel/",
+      "statusCode": 301
+    },
+    {
+      "route": "/juga-a-padel-al-baix-llobregat",
+      "redirect": "/padel/",
+      "statusCode": 301
+    },
+    {
+      "route": "/sessions-promocionals-de-pickleball-al-baix-llobregat",
+      "redirect": "/pickleball/",
+      "statusCode": 301
+    },
+    {
+      "route": "/juega-al-pickeball-en-el-baix-llobregat",
+      "redirect": "/es/pickleball/",
+      "statusCode": 301
+    },
+    {
+      "route": "/pisos-con-pistas-de-pickleball-en-el-baix-llobregat",
+      "redirect": "/es/pickleball/",
+      "statusCode": 301
+    },
+    {
+      "route": "/pistas-de-pickleball-cerca-de*",
+      "redirect": "/es/pickleball/",
+      "statusCode": 301
+    },
+    {
+      "route": "/el-teu-centre-desports-de-xarxa-al-baix-llobregat",
+      "redirect": "/",
+      "statusCode": 301
+    },
+    {
+      "route": "/blog-masonry",
+      "redirect": "/blog/",
+      "statusCode": 301
+    },
+    {
+      "route": "/membership",
+      "redirect": "/",
+      "statusCode": 301
+    },
+    {
+      "route": "/portfolio/tournaments",
+      "redirect": "/#tornejos",
+      "statusCode": 301
+    },
+    {
+      "route": "/services/tennis*",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/tennis-coach",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/tennis-court",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/what-makes-tennis-such-a-powerful-sport",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/premium-apparel-and-equipment-for-tennis",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/effective-tips-on-finding-your-perfect-tennis-trainer",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/upgrading-tennis-skills-in-a-fun-healthy-way",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/tennis-as-a-great-activity-for-the-entire-family",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/working-together-to-build-our-tennis-community",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/unique-techniques-that-we-teach-you-at-tennis-sportclub",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/popular-tennis-players-answer-readers-questions",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/ten-reasons-now-is-a-great-time-to-play-a-set",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/what-makes-tennis-so-special-and-interesting",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/luxury-tennis-courts-tour-for-you-to-enjoy",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/have-you-ever-visited-a-tennis-tournament",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/how-to-start-playing-tennis-with-zero-skills",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/become-a-professional-tennis-player-at-our-club-in-no-time",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/exclusive-tennis-courts-in-your-area-to-try-this-season",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/ten-tennis-schools-your-kids-should-love",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/how-to-prepare-yourself-for-a-championship",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/sharpen-your-skills-with-professional-trainers-at-our-club",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/how-to-get-the-most-professional-trainer-of-all",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/best-ways-to-pass-your-training-perfectly",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/why-do-children-love-training-with-us",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/a-great-and-fun-activity-for-you-and-your-entire-family",
+      "redirect": "/tennis/",
+      "statusCode": 301
+    },
+    {
+      "route": "/sports-make-us-a-lot-stronger-and-healthier-than-we-think",
+      "redirect": "/tennis/",
       "statusCode": 301
     },
     {
